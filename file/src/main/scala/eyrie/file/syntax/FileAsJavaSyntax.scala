@@ -9,7 +9,7 @@ trait FileAsJavaSyntax {
   implicit def toAsJava(file: FileName[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 
-  implicit def toAsJava(file: File[_]): AsJava[Path] =
+  implicit def toAsJava(file: FilePath[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 
   implicit def toAsJava(file: IdentityFilePath[_]): AsJava[Path] =
@@ -24,15 +24,15 @@ trait FileAsJavaSyntax {
   implicit def toAsJava(file: AbsoluteFile[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 
-  implicit def toAsJava(file: File.Empty[_]): AsJava[Path] =
+  implicit def toAsJava(file: FilePath.Empty[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 
-  implicit def toAsJava(file: File.NonEmpty[_]): AsJava[Path] =
+  implicit def toAsJava(file: FilePath.NonEmpty[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 
-  implicit def toAsJava(file: File.Relative[_]): AsJava[Path] =
+  implicit def toAsJava(file: FilePath.Relative[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 
-  implicit def toAsJava(file: File.Absolute[_]): AsJava[Path] =
+  implicit def toAsJava(file: FilePath.Absolute[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 }

@@ -2,9 +2,9 @@ package eyrie.file.test
 
 import java.nio.file.Paths
 
-import eyrie.file.File.Internal
+import eyrie.file.FilePath.Internal
 import eyrie.file.context.Local
-import eyrie.file.{AbsoluteFile, File, FileName, RelativeFile}
+import eyrie.file.{AbsoluteFile, FileName, FilePath, RelativeFile}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
@@ -24,7 +24,7 @@ class SiblingSpec extends FreeSpec {
 
   "RelativeFile" - {
     "parent should be File.Relative" in {
-      relativeFile.parent: File.Relative[Local]
+      relativeFile.parent: FilePath.Relative[Local]
     }
     "lastSegment should be FileName" in {
       relativeFile.lastSegment: FileName[Local]
@@ -32,7 +32,7 @@ class SiblingSpec extends FreeSpec {
   }
   "AbsoluteFile" - {
     "parent should be File.Absolute" in {
-      absoluteFile.parent: File.Absolute[Local]
+      absoluteFile.parent: FilePath.Absolute[Local]
     }
     "lastSegment should be FileName" in {
       absoluteFile.lastSegment: FileName[Local]
