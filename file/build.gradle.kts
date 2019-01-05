@@ -11,6 +11,7 @@ dependencies {
 
   api(project(":core"))
   compileOnly(fileTree("../core/build/libs/core.jar")) // Dirty hack
+  testCompileOnly(fileTree("../core/build/libs/core.jar")) // Dirty hack
 
   testImplementation("junit:junit:4.12")
   testImplementation("org.scalatest:scalatest_2.12:3.0.5")
