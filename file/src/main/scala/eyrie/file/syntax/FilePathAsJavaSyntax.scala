@@ -5,7 +5,7 @@ import java.nio.file.Path
 import eyrie.file._
 import eyrie.file.ops.AsJava
 
-trait FileAsJavaSyntax {
+trait FilePathAsJavaSyntax {
   implicit def toAsJava(file: FileName[_]): AsJava[Path] =
     file.asInstanceOf[AsJava[Path]]
 
