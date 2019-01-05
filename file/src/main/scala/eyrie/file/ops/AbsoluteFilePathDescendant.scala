@@ -3,20 +3,23 @@ package eyrie.file.ops
 import java.nio.file.Path
 
 import eyrie.file.FilePath.Internal
-import eyrie.file.{AbsoluteFile, FilePath, FileName}
-import eyrie.ops.Successor
+import eyrie.file.{AbsoluteFile, FileName, FilePath, RootDirectory}
+import eyrie.ops.Descendant
 
 private[file]
-trait AbsoluteFilePathSuccessor[C] extends Successor[AbsoluteFile[C]]  {
+trait AbsoluteFilePathDescendant[C] extends Descendant[AbsoluteFile[C]]  {
   override
   type Prefix = FilePath.Absolute[C]
 
   override
   type Segment = FileName[C]
+
+  override
+  type Root = RootDirectory[C]
 }
 
 private[file]
-object AbsoluteFilePathSuccessor extends AbsoluteFilePathSuccessor[Any] {
+object AbsoluteFilePathDescendant extends AbsoluteFilePathDescendant[Any] {
   import eyrie.file.syntax.fileAsJava._
 
   private
@@ -34,5 +37,8 @@ object AbsoluteFilePathSuccessor extends AbsoluteFilePathSuccessor[Any] {
   override
   def lastSegment(a: AbsoluteFile[Any]): FileName[Any] =
     Internal.FileName(a.asJava.getFileName)
-}
 
+  override
+  def root(a: AbsoluteFile[Any]): RootDirectory[Any] =
+    Internal.RootDirectory(a.asJava.getRoot)
+}
