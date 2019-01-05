@@ -6,6 +6,7 @@ import eyrie.file.FilePath.Internal
 import eyrie.file.{FilePath, FileName, RelativeFile}
 import eyrie.ops.Successor
 
+private[file]
 trait RelativeFilePathSuccessor[C] extends Successor[RelativeFile[C]]  {
   override
   type Prefix = FilePath.Relative[C]

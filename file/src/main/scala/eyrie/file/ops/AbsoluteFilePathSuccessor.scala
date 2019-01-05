@@ -6,6 +6,7 @@ import eyrie.file.FilePath.Internal
 import eyrie.file.{AbsoluteFile, FilePath, FileName}
 import eyrie.ops.Successor
 
+private[file]
 trait AbsoluteFilePathSuccessor[C] extends Successor[AbsoluteFile[C]]  {
   override
   type Prefix = FilePath.Absolute[C]
