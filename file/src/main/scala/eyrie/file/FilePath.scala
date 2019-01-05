@@ -3,18 +3,18 @@ package eyrie.file
 import java.nio.file.Path
 
 import eyrie.file
-import eyrie.file.ops.{AsJava, FileConvertibleInstances}
+import eyrie.file.ops.AsJava
 
 sealed trait FileName[C] extends Any
-object FileName
+object FileName extends FileNameInstances
 
 sealed trait FilePath[C] extends Any
 
 sealed trait IdentityFilePath[C] extends Any
-object IdentityFilePath
+object IdentityFilePath extends IdentityFilePathInstances
 
 sealed trait RootDirectory[C] extends Any
-object RootDirectory
+object RootDirectory extends RootDirectoryInstances
 
 sealed trait RelativeFile[C] extends Any
 object RelativeFile extends RelativeFileInstances
@@ -24,16 +24,16 @@ object AbsoluteFile extends AbsoluteFileInstances
 
 object FilePath extends FileInstances {
   sealed trait Empty[C] extends Any
-  object Empty extends FileConvertibleInstances[Empty, IdentityFilePath, RootDirectory]
+  object Empty extends EmptyInstances
 
   sealed trait NonEmpty[C] extends Any
-  object NonEmpty extends FileConvertibleInstances[NonEmpty, RelativeFile, AbsoluteFile]
+  object NonEmpty extends NonEmptyInstances
 
   sealed trait Relative[C] extends Any
-  object Relative extends FileConvertibleInstances[Relative, IdentityFilePath, RelativeFile]
+  object Relative extends RelativeInstances
 
   sealed trait Absolute[C] extends Any
-  object Absolute extends FileConvertibleInstances[Absolute, RootDirectory, AbsoluteFile]
+  object Absolute extends AbsoluteInstances
 
 
   private[file]

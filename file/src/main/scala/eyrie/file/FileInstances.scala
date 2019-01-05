@@ -1,10 +1,10 @@
 package eyrie.file
 
-import eyrie.file.ops.FileConvertible
+import eyrie.file.ops.{FileConvertible, FileEqualityInstances}
 import eyrie.ops.Convertible
 
 private[file]
-trait FileInstances {
+trait FileInstances extends FileEqualityInstances[FilePath] {
   private lazy val _emptyConvertibleInstance = new FileConvertible[FilePath.Empty, FilePath]
   private lazy val _nonEmptyConvertibleInstance = new FileConvertible[FilePath.NonEmpty, FilePath]
   private lazy val _relativeConvertibleInstance = new FileConvertible[FilePath.Relative, FilePath]

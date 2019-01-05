@@ -16,7 +16,9 @@ class FileConvertible[A[_], B[_]](implicit A: ClassTag[A[_]]) extends Convertibl
 }
 
 private[file]
-class FileConvertibleInstances[Z[_], I[_], J[_]](implicit I: ClassTag[I[_]], J: ClassTag[J[_]]) {
+class FileConvertibleInstances[Z[_], I[_], J[_]](implicit I: ClassTag[I[_]], J: ClassTag[J[_]])
+  extends FileEqualityInstances[Z] {
+
   private
   lazy val _leftConvertibleInstance = new FileConvertible[I, Z]
 
