@@ -4,13 +4,13 @@ import eyrie.file.FilePath.Internal
 import eyrie.file.{FileName, RelativeFile}
 import eyrie.ops.Segment
 
-trait FileSegment[C] extends Segment[FileName[C]] {
+trait FilePathSegment[C] extends Segment[FileName[C]] {
   override
   type Singleton = RelativeFile[C]
 }
 
 private[file]
-object FileSegment extends FileSegment[Any] {
+object FilePathSegment extends FilePathSegment[Any] {
   import eyrie.file.syntax.fileAsJava._
 
   override

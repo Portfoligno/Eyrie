@@ -5,7 +5,7 @@ import eyrie.ops.Convertible
 import scala.reflect.ClassTag
 
 private[file]
-class FileConvertible[A[_], B[_]](implicit A: ClassTag[A[_]]) extends Convertible[A[_], B[_]] {
+class FilePathConvertible[A[_], B[_]](implicit A: ClassTag[A[_]]) extends Convertible[A[_], B[_]] {
   override
   def widen(a: A[_]): B[_] =
     a.asInstanceOf[B[_]]
@@ -16,14 +16,14 @@ class FileConvertible[A[_], B[_]](implicit A: ClassTag[A[_]]) extends Convertibl
 }
 
 private[file]
-class FileConvertibleInstances[Z[_], I[_], J[_]](implicit I: ClassTag[I[_]], J: ClassTag[J[_]])
-  extends FileEqualityInstances[Z] {
+class ConvertibleInstances[Z[_], I[_], J[_]](implicit I: ClassTag[I[_]], J: ClassTag[J[_]])
+  extends EqualityInstances[Z] {
 
   private
-  lazy val _leftConvertibleInstance = new FileConvertible[I, Z]
+  lazy val _leftConvertibleInstance = new FilePathConvertible[I, Z]
 
   private
-  lazy val _rightConvertibleInstance = new FileConvertible[J, Z]
+  lazy val _rightConvertibleInstance = new FilePathConvertible[J, Z]
 
   implicit def leftFileConvertibleInstance[C]: Convertible[I[C], Z[C]] =
     _leftConvertibleInstance.asInstanceOf[Convertible[I[C], Z[C]]]

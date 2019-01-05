@@ -3,7 +3,7 @@ package eyrie.ops
 import simulacrum.typeclass
 
 @typeclass
-trait Sibling[A] {
+trait Successor[A] {
   type Prefix
   type Segment
 
@@ -11,8 +11,8 @@ trait Sibling[A] {
   def lastSegment(a: A): Segment
 }
 
-object Sibling {
-  type Aux[A, B, C] = Sibling[A] {
+object Successor {
+  type Aux[A, B, C] = Successor[A] {
     type Prefix = B
     type Segment = C
   }

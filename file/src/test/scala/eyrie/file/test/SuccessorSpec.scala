@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
-object SiblingSpec {
+object SuccessorSpec {
   val relativeFile: RelativeFile[Local] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 
@@ -18,9 +18,9 @@ object SiblingSpec {
 }
 
 @RunWith(classOf[JUnitRunner])
-class SiblingSpec extends FreeSpec {
-  import SiblingSpec._
-  import eyrie.syntax.sibling._
+class SuccessorSpec extends FreeSpec {
+  import SuccessorSpec._
+  import eyrie.syntax.successor._
 
   "RelativeFile" - {
     "parent should be File.Relative" in {

@@ -1,18 +1,18 @@
 package eyrie.file
 
-import eyrie.file.ops.{FileConvertible, FileEqualityInstances}
+import eyrie.file.ops.{FilePathConvertible, EqualityInstances}
 import eyrie.ops.Convertible
 
 private[file]
-trait FileInstances extends FileEqualityInstances[FilePath] {
-  private lazy val _emptyConvertibleInstance = new FileConvertible[FilePath.Empty, FilePath]
-  private lazy val _nonEmptyConvertibleInstance = new FileConvertible[FilePath.NonEmpty, FilePath]
-  private lazy val _relativeConvertibleInstance = new FileConvertible[FilePath.Relative, FilePath]
-  private lazy val _absoluteConvertibleInstance = new FileConvertible[FilePath.Absolute, FilePath]
-  private lazy val _identityFilePathConvertibleInstance = new FileConvertible[IdentityFilePath, FilePath]
-  private lazy val _rootDirectoryConvertibleInstance = new FileConvertible[RootDirectory, FilePath]
-  private lazy val _relativeFileConvertibleInstance = new FileConvertible[RelativeFile, FilePath]
-  private lazy val _absoluteFileConvertibleInstance = new FileConvertible[AbsoluteFile, FilePath]
+trait FileInstances extends EqualityInstances[FilePath] {
+  private lazy val _emptyConvertibleInstance = new FilePathConvertible[FilePath.Empty, FilePath]
+  private lazy val _nonEmptyConvertibleInstance = new FilePathConvertible[FilePath.NonEmpty, FilePath]
+  private lazy val _relativeConvertibleInstance = new FilePathConvertible[FilePath.Relative, FilePath]
+  private lazy val _absoluteConvertibleInstance = new FilePathConvertible[FilePath.Absolute, FilePath]
+  private lazy val _identityFilePathConvertibleInstance = new FilePathConvertible[IdentityFilePath, FilePath]
+  private lazy val _rootDirectoryConvertibleInstance = new FilePathConvertible[RootDirectory, FilePath]
+  private lazy val _relativeFileConvertibleInstance = new FilePathConvertible[RelativeFile, FilePath]
+  private lazy val _absoluteFileConvertibleInstance = new FilePathConvertible[AbsoluteFile, FilePath]
 
   implicit def emptyConvertibleInstance[C]: Convertible[FilePath.Empty[C], FilePath[C]] =
     _emptyConvertibleInstance.asInstanceOf[Convertible[FilePath.Empty[C], FilePath[C]]]

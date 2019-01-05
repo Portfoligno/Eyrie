@@ -1,9 +1,9 @@
 package eyrie.file
 
-import eyrie.file.ops.{FileAbsoluteSibling, FileEqualityInstances}
+import eyrie.file.ops.{AbsoluteFilePathSuccessor, EqualityInstances}
 
 private[file]
-trait AbsoluteFileInstances extends FileEqualityInstances[AbsoluteFile] {
-  implicit def fileRelativeSiblingInstance[C]: FileAbsoluteSibling[C] =
-    FileAbsoluteSibling.asInstanceOf[FileAbsoluteSibling[C]]
+trait AbsoluteFileInstances extends EqualityInstances[AbsoluteFile] {
+  implicit def absoluteFilePathSuccessorInstance[C]: AbsoluteFilePathSuccessor[C] =
+    AbsoluteFilePathSuccessor.asInstanceOf[AbsoluteFilePathSuccessor[C]]
 }

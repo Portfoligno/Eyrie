@@ -1,5 +1,5 @@
 package eyrie.file
 
-import eyrie.file.ops.FileEqualityInstances
+import eyrie.file.ops.EqualityInstances
 
-trait RootDirectoryInstances extends FileEqualityInstances[RootDirectory]
+trait RootDirectoryInstances extends EqualityInstances[RootDirectory]

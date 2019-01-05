@@ -3,7 +3,7 @@ package eyrie.syntax
 import eyrie.ops.Segment
 
 trait SegmentSyntax {
-  implicit def toSiblingOps[A](a: A): SegmentOps[A] =
+  implicit def toSegmentOps[A](a: A): SegmentOps[A] =
     new SegmentOps(a)
 }
 

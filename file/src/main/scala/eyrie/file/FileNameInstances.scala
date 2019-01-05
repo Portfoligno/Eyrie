@@ -1,9 +1,9 @@
 package eyrie.file
 
-import eyrie.file.ops.{FileEqualityInstances, FileSegment}
+import eyrie.file.ops.{EqualityInstances, FilePathSegment}
 
 private[file]
-trait FileNameInstances extends FileEqualityInstances[FileName] {
-  implicit def fileSegmentInstance[C]: FileSegment[C] =
-    FileSegment.asInstanceOf[FileSegment[C]]
+trait FileNameInstances extends EqualityInstances[FileName] {
+  implicit def fileSegmentInstance[C]: FilePathSegment[C] =
+    FilePathSegment.asInstanceOf[FilePathSegment[C]]
 }

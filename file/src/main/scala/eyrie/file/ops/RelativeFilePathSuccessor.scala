@@ -4,9 +4,9 @@ import java.nio.file.Path
 
 import eyrie.file.FilePath.Internal
 import eyrie.file.{FilePath, FileName, RelativeFile}
-import eyrie.ops.Sibling
+import eyrie.ops.Successor
 
-trait FileRelativeSibling[C] extends Sibling[RelativeFile[C]]  {
+trait RelativeFilePathSuccessor[C] extends Successor[RelativeFile[C]]  {
   override
   type Prefix = FilePath.Relative[C]
 
@@ -15,7 +15,7 @@ trait FileRelativeSibling[C] extends Sibling[RelativeFile[C]]  {
 }
 
 private[file]
-object FileRelativeSibling extends FileRelativeSibling[Any] {
+object RelativeFilePathSuccessor extends RelativeFilePathSuccessor[Any] {
   import eyrie.file.syntax.fileAsJava._
 
   private
