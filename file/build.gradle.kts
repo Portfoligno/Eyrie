@@ -10,8 +10,8 @@ dependencies {
   api("org.scala-lang:scala-library:2.12.8")
 
   api(project(":core"))
-  compileOnly(fileTree("../core/build/libs/core.jar")) // Dirty hack
-  testCompileOnly(fileTree("../core/build/libs/core.jar")) // Dirty hack
+  compileClasspath(fileTree("../core/build/libs/core.jar")) // Dirty hack
+  testCompileClasspath(fileTree("../core/build/libs/core.jar")) // Dirty hack
 
   testImplementation("junit:junit:4.12")
   testImplementation("org.scalatest:scalatest_2.12:3.0.5")

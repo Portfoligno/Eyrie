@@ -1,8 +1,8 @@
 package eyrie.file.instances
 
-import eyrie.{Emptiness, Relativity}
 import eyrie.file.FilePath
 import eyrie.ops.Subdivision
+import eyrie.{Emptiness, Relativity}
 
 private[file]
 trait FilePathInstances extends LowPriorityFilePathInstances with EqualityInstances[FilePath] {

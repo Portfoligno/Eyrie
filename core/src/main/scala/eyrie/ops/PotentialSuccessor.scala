@@ -19,7 +19,7 @@ object PotentialSuccessor {
   }
 
   implicit def eyrieConvertibleBasedPotentialSuccessorInstance[A, B](
-    implicit F: Convertible.Aux[Emptiness, False, B, A], B: Successor[B]
+    implicit F: Convertible.Aux[Emptiness, False, B, A], B: Successor.ByInput[B]
   ): PotentialSuccessor.Aux[A, B.Prefix, B.Segment] =
     new PotentialSuccessor[A] {
       override

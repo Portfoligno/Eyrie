@@ -10,65 +10,79 @@ trait Convertible[A, B] {
 }
 
 object Convertible {
-  type Aux[Attr[_], Param, A, B] = Convertible[A, B] {
+  type Aux[Attr[_], P, A, B] = Convertible[A, B] {
     type Attribute[X] = Attr[X]
-    type Parameter = Param
+    type Parameter = P
   }
 
   @inline
   def apply[A, B](implicit F: Convertible[A, B]): Convertible[A, B] = F
 
 
-  trait Widen[Attr[_], A] extends Any {
+  trait ByAttribute[Attr[_], A] extends Any {
     type Out
 
     def widen: A => Out
+
+    def narrow: Out => Option[A]
   }
 
-  object Widen {
-    type Aux[Attr[_], A, B] = Widen[Attr, A] {
+  object ByAttribute {
+    type Aux[Attr[_], A, B] = ByAttribute[Attr, A] {
       type Out = B
     }
 
     @inline
-    def apply[Attr[_], A](implicit F: Widen[Attr, A]): Widen[Attr, A] = F
+    def apply[Attr[_], A](implicit F: ByAttribute[Attr, A]): ByAttribute[Attr, A] = F
 
 
-    implicit def eyrieWidenInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, _, A, B]): Aux[Attr, A, B] =
-      new AuxImpl(F.widen)
+    implicit def eyrieByAttributeInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, _, A, B]): Aux[Attr, A, B] =
+      new ByAttribute[Attr, A] {
+        override
+        type Out = B
 
-    private
-    final class AuxImpl[Attr[_], A, B](override val widen: A => B) extends AnyVal with Widen[Attr, A] {
-      override
-      type Out = B
-    }
+        override
+        def widen: A => B =
+          F.widen
+
+        override
+        def narrow: B => Option[A] =
+          F.narrow
+      }
   }
 
 
-  trait Narrow[Prop, B] extends Any {
+  trait ByQuality[Qual, B] extends Any {
     type Out
+
+    def widen: Out => B
 
     def narrow: B => Option[Out]
   }
 
-  object Narrow {
-    type Aux[Prop, A, B] = Narrow[Prop, B] {
+  object ByQuality {
+    type Aux[Qual, A, B] = ByQuality[Qual, B] {
       type Out = A
     }
 
     @inline
-    def apply[Prop, B](implicit F: Narrow[Prop, B]): Narrow[Prop, B] = F
+    def apply[Qual, B](implicit F: ByQuality[Qual, B]): ByQuality[Qual, B] = F
 
 
-    implicit def eyrieWidenInstance[Attr[_], Param, A, B](
+    implicit def eyrieByQualityInstance[Attr[_], Param, A, B](
       implicit F: Convertible.Aux[Attr, Param, A, B]
     ): Aux[Attr[Param], A, B] =
-      new AuxImpl(F.narrow)
+      new ByQuality[Attr[Param], B] {
+        override
+        type Out = A
 
-    private
-    final class AuxImpl[Prop, A, B](override val narrow: B => Option[A]) extends AnyVal with Narrow[Prop, B] {
-      override
-      type Out = A
-    }
+        override
+        def widen: A => B =
+          F.widen
+
+        override
+        def narrow: B => Option[A] =
+          F.narrow
+      }
   }
 }

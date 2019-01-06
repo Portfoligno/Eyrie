@@ -1,8 +1,8 @@
 import shapeless.Witness
 
 package object eyrie {
-  trait Emptiness[X]
-  trait Relativity[X]
+  trait Emptiness[+X]
+  trait Relativity[+X]
 
   type True = Witness.`true`.T
   type False = Witness.`false`.T

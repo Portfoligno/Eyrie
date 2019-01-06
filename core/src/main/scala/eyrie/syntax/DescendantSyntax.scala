@@ -8,6 +8,6 @@ trait DescendantSyntax {
 }
 
 final class DescendantOps[A](private val a: A) extends AnyVal {
-  def root(implicit A: Descendant[A]): A.Root =
+  def root(implicit A: Descendant.ByInput[A]): A.Root =
     A.root(a)
 }

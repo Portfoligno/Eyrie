@@ -8,9 +8,9 @@ trait SuccessorSyntax {
 }
 
 final class SuccessorOps[A](private val a: A) extends AnyVal {
-  def parent(implicit A: Successor[A]): A.Prefix =
+  def parent(implicit A: Successor.ByInput[A]): A.Prefix =
     A.parent(a)
 
-  def lastSegment(implicit A: Successor[A]): A.Segment =
+  def lastSegment(implicit A: Successor.ByInput[A]): A.Segment =
     A.lastSegment(a)
 }
