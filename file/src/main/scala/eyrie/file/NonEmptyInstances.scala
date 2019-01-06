@@ -1,7 +1,7 @@
 package eyrie.file
 
 import eyrie.file.FilePath.NonEmpty
-import eyrie.file.ops.ConvertibleInstances
+import eyrie.file.ops.EqualityInstances
 
 private[file]
-class NonEmptyInstances extends ConvertibleInstances[NonEmpty, RelativeFile, AbsoluteFile]
+class NonEmptyInstances extends EqualityInstances[NonEmpty]

@@ -1,7 +1,7 @@
 package eyrie.file
 
 import eyrie.file.FilePath.Absolute
-import eyrie.file.ops.ConvertibleInstances
+import eyrie.file.ops.EqualityInstances
 
 private[file]
-class AbsoluteInstances extends ConvertibleInstances[Absolute, RootDirectory, AbsoluteFile]
+class AbsoluteInstances extends EqualityInstances[Absolute]
