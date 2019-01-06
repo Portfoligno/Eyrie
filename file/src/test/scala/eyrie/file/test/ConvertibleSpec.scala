@@ -4,7 +4,7 @@ import java.nio.file.Paths
 
 import eyrie.file.FilePath.Internal
 import eyrie.file.context.Local
-import eyrie.file.{FilePath, IdentityFilePath, RelativeFile}
+import eyrie.file.{Emptiness, FilePath, IdentityFilePath, RelativeFile, Relativity}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
@@ -30,17 +30,17 @@ class ConvertibleSpec extends FreeSpec {
     }
   }
   "RelativeFile" - {
-    "widenEmptiness should be FilePath.NonEmpty" in {
-      relativeFile.widenEmptiness: FilePath.NonEmpty[Local]
-    }
-    "widenRelativity should be FilePath.Relative" in {
-      relativeFile.widenRelativity: FilePath.Relative[Local]
-    }
     "widen should be FilePath.Relative" in {
       relativeFile.widen: FilePath.Relative[Local]
     }
     "widen.widen should should be FilePath" in {
       relativeFile.widen.widen: FilePath[Local]
+    }
+    "widening[Emptiness] should be FilePath.Relative" in {
+      relativeFile.widening[Emptiness]: FilePath.Relative[Local]
+    }
+    "widening[Relativity] should be FilePath.NonEmpty" in {
+      relativeFile.widening[Relativity]: FilePath.NonEmpty[Local]
     }
   }
 }

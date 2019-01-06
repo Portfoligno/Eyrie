@@ -3,9 +3,9 @@ package eyrie.ops
 trait Convertible[A, B] {
   type Attribute[_]
 
-  def widen(a: A): B
+  def widen: A => B
 
-  def narrow(b: B): Option[A]
+  def narrow: B => Option[A]
 }
 
 object Convertible {
@@ -14,5 +14,5 @@ object Convertible {
   }
 
   @inline
-  def apply[A, B](implicit convertible: Convertible[A, B]): Convertible[A, B] = convertible
+  def apply[A, B](implicit F: Convertible[A, B]): Convertible[A, B] = F
 }
