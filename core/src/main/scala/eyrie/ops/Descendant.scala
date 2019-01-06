@@ -6,7 +6,7 @@ import simulacrum.typeclass
 trait Descendant[A] extends Successor[A] {
   type Root
 
-  def root(a: A): Root
+  def root: A => Root
 }
 
 object Descendant {

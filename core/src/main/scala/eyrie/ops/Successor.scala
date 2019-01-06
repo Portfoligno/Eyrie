@@ -7,8 +7,8 @@ trait Successor[A] {
   type Prefix
   type Segment
 
-  def parent(a: A): Prefix
-  def lastSegment(a: A): Segment
+  def parent: A => Prefix
+  def lastSegment: A => Segment
 }
 
 object Successor {

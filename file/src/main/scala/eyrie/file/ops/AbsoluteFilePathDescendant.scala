@@ -31,14 +31,14 @@ object AbsoluteFilePathDescendant extends AbsoluteFilePathDescendant[Any] {
     }
 
   override
-  def parent(a: AbsoluteFile[Any]): FilePath.Absolute[Any] =
-    absolute(a.asJava.getParent)
+  def parent: AbsoluteFile[Any] => FilePath.Absolute[Any] =
+    a => absolute(a.asJava.getParent)
 
   override
-  def lastSegment(a: AbsoluteFile[Any]): FileName[Any] =
-    Internal.FileName(a.asJava.getFileName)
+  def lastSegment: AbsoluteFile[Any] => FileName[Any] =
+    a => Internal.FileName(a.asJava.getFileName)
 
   override
-  def root(a: AbsoluteFile[Any]): RootDirectory[Any] =
-    Internal.RootDirectory(a.asJava.getRoot)
+  def root: AbsoluteFile[Any] => RootDirectory[Any] =
+    a => Internal.RootDirectory(a.asJava.getRoot)
 }

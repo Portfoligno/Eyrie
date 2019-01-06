@@ -28,10 +28,10 @@ object RelativeFilePathSuccessor extends RelativeFilePathSuccessor[Any] {
     }
 
   override
-  def parent(a: RelativeFile[Any]): FilePath.Relative[Any] =
-    relative(a.asJava.getParent)
+  def parent: RelativeFile[Any] => FilePath.Relative[Any] =
+    a => relative(a.asJava.getParent)
 
   override
-  def lastSegment(a: RelativeFile[Any]): FileName[Any] =
-    Internal.FileName(a.asJava.getFileName)
+  def lastSegment: RelativeFile[Any] => FileName[Any] =
+    a => Internal.FileName(a.asJava.getFileName)
 }

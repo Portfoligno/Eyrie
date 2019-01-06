@@ -7,8 +7,8 @@ trait PotentialSuccessor[A] {
   type Prefix
   type Segment
 
-  def parentOption(a: A): Option[Prefix]
-  def lastSegmentOption(a: A): Option[Segment]
+  def parentOption: A => Option[Prefix]
+  def lastSegmentOption: A => Option[Segment]
 }
 
 object PotentialSuccessor {
@@ -27,11 +27,11 @@ object PotentialSuccessor {
       type Segment = B.Segment
 
       override
-      def parentOption(a: A): Option[B.Prefix] =
-        F.narrow(a).map(B.parent(_))
+      def parentOption: A => Option[B.Prefix] =
+        F.narrow(_).map(B.parent)
 
       override
-      def lastSegmentOption(a: A): Option[B.Segment] =
-        F.narrow(a).map(B.lastSegment(_))
+      def lastSegmentOption: A => Option[B.Segment] =
+        F.narrow(_).map(B.lastSegment)
     }
 }
