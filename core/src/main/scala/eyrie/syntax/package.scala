@@ -6,6 +6,7 @@ package object syntax {
   object descendant extends DescendantSyntax
   object potentialSuccessor extends PotentialSuccessorSyntax
   object segment extends SegmentSyntax
+  object subdivision extends SubdivisionSyntax
   object successor extends SuccessorSyntax
 
   object equality extends EqualitySyntax

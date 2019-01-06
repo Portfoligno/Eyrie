@@ -36,11 +36,11 @@ class ConvertibleSpec extends FreeSpec {
     "widen.widen should should be FilePath" in {
       relativeFile.widen.widen: FilePath[Local]
     }
-    "widening[Emptiness] should be FilePath.Relative" in {
-      relativeFile.widening[Emptiness]: FilePath.Relative[Local]
+    "widenBy[Emptiness] should be FilePath.Relative" in {
+      relativeFile.widenBy[Emptiness]: FilePath.Relative[Local]
     }
-    "widening[Relativity] should be FilePath.NonEmpty" in {
-      relativeFile.widening[Relativity]: FilePath.NonEmpty[Local]
+    "widenBy[Relativity] should be FilePath.NonEmpty" in {
+      relativeFile.widenBy[Relativity]: FilePath.NonEmpty[Local]
     }
   }
 }

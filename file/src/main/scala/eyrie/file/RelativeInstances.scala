@@ -1,7 +1,8 @@
 package eyrie.file
 
 import eyrie.file.FilePath.Relative
-import eyrie.file.ops.EqualityInstances
+import eyrie.file.ops.{EqualityInstances, SubdivisionInstances}
 
 private[file]
-class RelativeInstances extends EqualityInstances[Relative]
+trait RelativeInstances extends SubdivisionInstances[Emptiness, FilePath.Relative, IdentityFilePath, RelativeFile]
+  with EqualityInstances[Relative]

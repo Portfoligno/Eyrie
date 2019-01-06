@@ -24,7 +24,7 @@ class FilePathConvertible[A[_]](implicit A: ClassTag[A[_]]) extends Convertible[
 }
 
 private[file]
-class ConvertibleInstances extends LowPriorityConvertibleInstances {
+trait ConvertibleInstances extends LowPriorityConvertibleInstances {
   implicit def emptyConvertibleInstance[C]: Convertible[FilePath.Empty[C], FilePath[C]] =
     _emptyConvertibleInstance.of[C, FilePath]
   implicit def nonEmptyConvertibleInstance[C]: Convertible[FilePath.NonEmpty[C], FilePath[C]] =
