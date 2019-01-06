@@ -11,9 +11,10 @@ import org.scalatest.junit.JUnitRunner
 
 object SubdivisionSpec {
   val filePath: FilePath[Local] =
-    Internal.RelativeFile(Paths.get("a/b/c")).asInstanceOf[FilePath[Local]]
+    Internal.RelativeFile(Paths.get("a/b/c"))
+
   val relativeFile: FilePath.Relative[Local] =
-    Internal.RelativeFile(Paths.get("a/b/c")).asInstanceOf[FilePath.Relative[Local]]
+    Internal.RelativeFile(Paths.get("a/b/c"))
 }
 
 @RunWith(classOf[JUnitRunner])

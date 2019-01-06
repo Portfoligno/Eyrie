@@ -11,7 +11,8 @@ import org.scalatest.junit.JUnitRunner
 
 object ConvertibleSpec {
   val relative: FilePath.Relative[Local] =
-    Internal.RelativeFile(Paths.get("a/b/c")).asInstanceOf[FilePath.Relative[Local]]
+    Internal.RelativeFile(Paths.get("a/b/c"))
+
   val relativeFile: RelativeFile[Local] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 }

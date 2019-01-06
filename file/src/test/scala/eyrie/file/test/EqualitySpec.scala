@@ -11,7 +11,7 @@ import org.scalatest.junit.JUnitRunner
 
 object EqualitySpec {
   val relative: FilePath.Relative[Local] =
-    Internal.RelativeFile(Paths.get("a/b/c")).asInstanceOf[FilePath.Relative[Local]]
+    Internal.RelativeFile(Paths.get("a/b/c"))
 
   def testCall: Boolean = {
     import eyrie.syntax.equality._

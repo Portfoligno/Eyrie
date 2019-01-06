@@ -11,10 +11,10 @@ import org.scalatest.junit.JUnitRunner
 
 object PotentialSuccessorSpec {
   val relative: FilePath.Relative[Local] =
-    Internal.RelativeFile(Paths.get("a/b/c")).asInstanceOf[FilePath.Relative[Local]]
+    Internal.RelativeFile(Paths.get("a/b/c"))
 
   val absolute: FilePath.Absolute[Local] =
-    Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath).asInstanceOf[FilePath.Absolute[Local]]
+    Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 }
 
 @RunWith(classOf[JUnitRunner])
