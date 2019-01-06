@@ -22,7 +22,7 @@ class ConvertibleSpec extends FreeSpec {
   import eyrie.syntax.convertible._
 
   "FilePath.Relative" - {
-    "widen to FilePath should work" in {
+    "widen should be FilePath" in {
       relative.widen: FilePath[Local]
     }
     "toOption should work" in {
@@ -30,14 +30,17 @@ class ConvertibleSpec extends FreeSpec {
     }
   }
   "RelativeFile" - {
-    "widen to NonEmpty should work" in {
-      relativeFile.widen[FilePath.NonEmpty[Local]]
+    "widenEmptiness should be FilePath.NonEmpty" in {
+      relativeFile.widenEmptiness: FilePath.NonEmpty[Local]
     }
-    "widen to Relative should work" in {
+    "widenRelativity should be FilePath.Relative" in {
+      relativeFile.widenRelativity: FilePath.Relative[Local]
+    }
+    "widen should be FilePath.Relative" in {
       relativeFile.widen: FilePath.Relative[Local]
     }
-    "widen to FilePath should work" in {
-      relativeFile.widen[FilePath[Local]]
+    "widen.widen should should be FilePath" in {
+      relativeFile.widen.widen: FilePath[Local]
     }
   }
 }
