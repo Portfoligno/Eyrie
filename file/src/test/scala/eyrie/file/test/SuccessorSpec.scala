@@ -23,7 +23,7 @@ class SuccessorSpec extends FreeSpec {
   import eyrie.syntax.successor._
 
   "RelativeFile" - {
-    "parent should be File.Relative" in {
+    "parent should be FilePath.Relative" in {
       relativeFile.parent: FilePath.Relative[Local]
     }
     "lastSegment should be FileName" in {
@@ -31,7 +31,7 @@ class SuccessorSpec extends FreeSpec {
     }
   }
   "AbsoluteFile" - {
-    "parent should be File.Absolute" in {
+    "parent should be FilePath.Absolute" in {
       absoluteFile.parent: FilePath.Absolute[Local]
     }
     "lastSegment should be FileName" in {

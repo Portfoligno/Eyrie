@@ -9,8 +9,8 @@ trait Convertible[A, B] {
 }
 
 object Convertible {
-  type Aux[A, B, C[_]] = Convertible[A, B] {
-    type Attribute[X] = C[X]
+  type Aux[Attr[_], A, B] = Convertible[A, B] {
+    type Attribute[X] = Attr[X]
   }
 
   @inline

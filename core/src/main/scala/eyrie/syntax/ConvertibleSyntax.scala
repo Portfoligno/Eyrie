@@ -1,6 +1,6 @@
 package eyrie.syntax
 
-import eyrie.ops.{AttributeConvertible, Convertible}
+import eyrie.ops.{AttributeDiscard, Convertible}
 
 trait ConvertibleSyntax {
   implicit def toConvertOps[A](a: A): ConvertibleOps[A] =
@@ -14,6 +14,6 @@ final class ConvertibleOps[A](private val a: A) extends AnyVal {
   def toOption[B](implicit F: Convertible[B, A]): Option[B] =
     F.narrow(a)
 
-  def widening[B[_]](implicit F: AttributeConvertible[B, A]): F.Out =
+  def widening[B[_]](implicit F: AttributeDiscard[B, A]): F.Out =
     F.widen(a)
 }
