@@ -2,7 +2,7 @@ plugins {
   maven
 }
 tasks.getByName<Wrapper>("wrapper") {
-  gradleVersion = "4.10.3"
+  gradleVersion = "5.1"
 }
 
 subprojects {
