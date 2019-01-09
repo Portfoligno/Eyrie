@@ -11,6 +11,6 @@ object FilePathEquality extends Equality[Any] {
 
 private[file]
 trait EqualityInstances[A[_]] {
-  implicit def equalityInstance[C]: Equality[A[C]] =
+  implicit def eyrieFileEqualityInstance[C]: Equality[A[C]] =
     FilePathEquality.asInstanceOf[Equality[A[C]]]
 }

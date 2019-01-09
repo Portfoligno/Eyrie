@@ -17,7 +17,7 @@ object PotentialSuccessor {
     type Segment = C
   }
 
-  implicit def convertibleBasedPotentialSuccessorInstance[A, B](
+  implicit def eyrieConvertibleBasedPotentialSuccessorInstance[A, B](
     implicit F: Convertible.Aux[PotentialSuccessor, B, A], B: Successor[B]
   ): PotentialSuccessor.Aux[A, B.Prefix, B.Segment] =
     new PotentialSuccessor[A] {

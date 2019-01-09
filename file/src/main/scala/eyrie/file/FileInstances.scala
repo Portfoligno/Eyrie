@@ -9,7 +9,7 @@ trait FileInstances extends LowPriorityFileInstances with EqualityInstances[File
   lazy val _relativitySubdivisionInstance =
     new FilePathSubdivision[Relativity, FilePath, FilePath.Relative, FilePath.Absolute]
 
-  implicit def relativitySubdivisionInstance[C]: Subdivision.Aux[
+  implicit def eyrieFileRelativitySubdivisionInstance[C]: Subdivision.Aux[
     Relativity, FilePath[C], FilePath.Relative[C], FilePath.Absolute[C]] =
     _relativitySubdivisionInstance.ofAux[C]
 }
@@ -20,7 +20,7 @@ trait LowPriorityFileInstances {
   lazy val _emptinessSubdivisionInstance =
     new FilePathSubdivision[Emptiness, FilePath, FilePath.Empty, FilePath.NonEmpty]
 
-  implicit def emptinessSubdivisionInstance[C]: Subdivision.Aux[
+  implicit def eyrieFileEmptinessSubdivisionInstance[C]: Subdivision.Aux[
     Emptiness, FilePath[C], FilePath.Empty[C], FilePath.NonEmpty[C]] =
     _emptinessSubdivisionInstance.ofAux[C]
 }

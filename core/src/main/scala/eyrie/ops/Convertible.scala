@@ -39,7 +39,7 @@ object Convertible {
     @inline
     def apply[Attr[_], A](implicit F: ByAttribute[Attr, A]): ByAttribute[Attr, A] = F
 
-    implicit def byAttributeInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, A, B]): Aux[Attr, A, B] =
+    implicit def eyrieByAttributeInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, A, B]): Aux[Attr, A, B] =
       new ConvertibleByAttributeAux(F.widen)
   }
 }

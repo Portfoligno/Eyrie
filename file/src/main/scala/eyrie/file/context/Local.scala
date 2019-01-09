@@ -7,7 +7,7 @@ import eyrie.file.ops.AsJava
 sealed trait Local extends AsJava[FileSystem]
 
 object Local {
-  implicit val localInstance: Local =
+  implicit val eyrieFileLocalInstance: Local =
     new Local {
       override
       def asJava: FileSystem = FileSystems.getDefault

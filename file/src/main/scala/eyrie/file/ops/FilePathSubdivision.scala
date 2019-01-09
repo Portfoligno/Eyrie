@@ -39,6 +39,6 @@ class SubdivisionInstances[Attr[_], A[_], L[_], R[_]](
   private
   lazy val _subdivisionInstance = new FilePathSubdivision[Emptiness, A, L, R]
 
-  implicit def subDivisionInstance[C]: Aux[Emptiness, A[C], L[C], R[C]] =
+  implicit def eyrieFileSubDivisionInstance[C]: Aux[Emptiness, A[C], L[C], R[C]] =
     _subdivisionInstance.ofAux[C]
 }
