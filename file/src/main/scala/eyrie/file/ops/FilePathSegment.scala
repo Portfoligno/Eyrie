@@ -4,6 +4,7 @@ import eyrie.file.FilePath.Internal
 import eyrie.file.{FileName, RelativeFile}
 import eyrie.ops.Segment
 
+private[file]
 trait FilePathSegment[C] extends Segment[FileName[C]] {
   override
   type Singleton = RelativeFile[C]
