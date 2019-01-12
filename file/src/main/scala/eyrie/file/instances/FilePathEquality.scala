@@ -1,4 +1,4 @@
-package eyrie.file.ops
+package eyrie.file.instances
 
 import eyrie.ops.Equality
 
@@ -9,7 +9,7 @@ object FilePathEquality extends Equality[Any] {
     x == y
 }
 
-private[file]
+private[instances]
 trait EqualityInstances[A[_]] extends AsJavaInstances[A] {
   implicit def eyrieFileEqualityInstance[C]: Equality[A[C]] =
     FilePathEquality.asInstanceOf[Equality[A[C]]]

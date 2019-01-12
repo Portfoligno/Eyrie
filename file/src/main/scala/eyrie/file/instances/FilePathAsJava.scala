@@ -1,6 +1,8 @@
-package eyrie.file.ops
+package eyrie.file.instances
 
 import java.nio.file.Path
+
+import eyrie.file.ops.AsJava
 
 private
 object FilePathAsJava extends AsJava[Any] {
@@ -9,7 +11,7 @@ object FilePathAsJava extends AsJava[Any] {
     a.asInstanceOf[AsJava.Ops[Out]]
 }
 
-private[file]
+private[instances]
 trait AsJavaInstances[A[_]] {
   implicit def eyrieFileAsJavaInstance[C]: AsJava.Aux[A[C], Path] =
     FilePathAsJava.asInstanceOf[AsJava.Aux[A[C], Path]]

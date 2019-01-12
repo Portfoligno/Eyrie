@@ -3,6 +3,7 @@ package eyrie.file
 import java.nio.file.Path
 
 import eyrie.file
+import eyrie.file.instances._
 import eyrie.file.ops.AsJava
 
 sealed trait FileName[C] extends Any
@@ -22,7 +23,7 @@ object RelativeFile extends RelativeFileInstances
 sealed trait AbsoluteFile[C] extends Any
 object AbsoluteFile extends AbsoluteFileInstances
 
-object FilePath extends FileInstances {
+object FilePath extends FilePathInstances {
   sealed trait Empty[C] extends Any
   object Empty extends EmptyInstances
 

@@ -1,4 +1,4 @@
-package eyrie.file.ops
+package eyrie.file.instances
 
 import java.nio.file.Path
 
@@ -7,20 +7,25 @@ import eyrie.file.{AbsoluteFile, FileName, FilePath, RootDirectory}
 import eyrie.ops.Descendant
 
 private[file]
-trait AbsoluteFilePathDescendant[C] extends Descendant[AbsoluteFile[C]]  {
-  override
-  type Prefix = FilePath.Absolute[C]
-
-  override
-  type Segment = FileName[C]
-
-  override
-  type Root = RootDirectory[C]
+trait AbsoluteFileInstances extends EqualityInstances[AbsoluteFile] {
+  implicit def eyrieFileDescendantInstance[C]: Descendant.Aux[
+    AbsoluteFile[C], FilePath.Absolute[C], FileName[C], RootDirectory[C]] =
+    AbsoluteFilePathDescendant.asInstanceOf[Descendant.Aux[
+      AbsoluteFile[C], FilePath.Absolute[C], FileName[C], RootDirectory[C]]]
 }
 
-private[file]
-object AbsoluteFilePathDescendant extends AbsoluteFilePathDescendant[Any] {
+private
+object AbsoluteFilePathDescendant extends Descendant[AbsoluteFile[Any]] {
   import eyrie.file.syntax.asJava._
+
+  override
+  type Prefix = FilePath.Absolute[Any]
+
+  override
+  type Segment = FileName[Any]
+
+  override
+  type Root = RootDirectory[Any]
 
   private
   def absolute[S](path: Path): FilePath.Absolute[S] =

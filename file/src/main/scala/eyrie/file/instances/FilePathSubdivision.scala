@@ -1,4 +1,4 @@
-package eyrie.file.ops
+package eyrie.file.instances
 
 import cats.syntax.either._
 import eyrie.file.Emptiness
@@ -7,7 +7,7 @@ import eyrie.ops.Subdivision.Aux
 
 import scala.reflect.ClassTag
 
-private[file]
+private[instances]
 class FilePathSubdivision[Attr[_], A[_], L[_], R[_]](
   implicit L: ClassTag[L[_]], R: ClassTag[R[_]]
 ) extends Subdivision[A[_]] {
@@ -27,12 +27,11 @@ class FilePathSubdivision[Attr[_], A[_], L[_], R[_]](
   }
 
 
-  private[file]
   def ofAux[C]: Subdivision.Aux[Attr, A[C], L[C], R[C]] =
     asInstanceOf[Subdivision.Aux[Attr, A[C], L[C], R[C]]]
 }
 
-private[file]
+private[instances]
 class SubdivisionInstances[Attr[_], A[_], L[_], R[_]](
   implicit L: ClassTag[L[_]], R: ClassTag[R[_]]
 ) {

@@ -1,5 +1,6 @@
-package eyrie.file
+package eyrie.file.instances
 
-import eyrie.file.ops.EqualityInstances
+import eyrie.file.IdentityFilePath
 
+private[file]
 trait IdentityFilePathInstances extends EqualityInstances[IdentityFilePath]

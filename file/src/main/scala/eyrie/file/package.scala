@@ -1,6 +1,6 @@
 package eyrie
 
-import eyrie.file.ops.ConvertibleInstances
+import eyrie.file.instances.ConvertibleInstances
 
 package object file extends ConvertibleInstances {
   trait Emptiness[Boolean]

@@ -1,4 +1,4 @@
-package eyrie.file.ops
+package eyrie.file.instances
 
 import eyrie.file.{AbsoluteFile, Emptiness, FilePath, IdentityFilePath, RelativeFile, Relativity, RootDirectory, ∨}
 import eyrie.ops.{Convertible, PotentialSuccessor}
@@ -90,12 +90,12 @@ trait LowPriorityConvertibleInstances1 {
     PotentialSuccessor, AbsoluteFile[C], FilePath.Absolute[C]] =
     _absoluteFileConvertibleInstance.ofAux[C, PotentialSuccessor, FilePath.Absolute]
 
-  private[ops] lazy val _emptyConvertibleInstance = new FilePathConvertible[FilePath.Empty]
-  private[ops] lazy val _nonEmptyConvertibleInstance = new FilePathConvertible[FilePath.NonEmpty]
-  private[ops] lazy val _relativeConvertibleInstance = new FilePathConvertible[FilePath.Relative]
-  private[ops] lazy val _absoluteConvertibleInstance = new FilePathConvertible[FilePath.Absolute]
-  private[ops] lazy val _identityFilePathConvertibleInstance = new FilePathConvertible[IdentityFilePath]
-  private[ops] lazy val _rootDirectoryConvertibleInstance = new FilePathConvertible[RootDirectory]
-  private[ops] lazy val _relativeFileConvertibleInstance = new FilePathConvertible[RelativeFile]
-  private[ops] lazy val _absoluteFileConvertibleInstance = new FilePathConvertible[AbsoluteFile]
+  private[instances] lazy val _emptyConvertibleInstance = new FilePathConvertible[FilePath.Empty]
+  private[instances] lazy val _nonEmptyConvertibleInstance = new FilePathConvertible[FilePath.NonEmpty]
+  private[instances] lazy val _relativeConvertibleInstance = new FilePathConvertible[FilePath.Relative]
+  private[instances] lazy val _absoluteConvertibleInstance = new FilePathConvertible[FilePath.Absolute]
+  private[instances] lazy val _identityFilePathConvertibleInstance = new FilePathConvertible[IdentityFilePath]
+  private[instances] lazy val _rootDirectoryConvertibleInstance = new FilePathConvertible[RootDirectory]
+  private[instances] lazy val _relativeFileConvertibleInstance = new FilePathConvertible[RelativeFile]
+  private[instances] lazy val _absoluteFileConvertibleInstance = new FilePathConvertible[AbsoluteFile]
 }

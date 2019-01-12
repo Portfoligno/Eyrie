@@ -1,7 +1,7 @@
-package eyrie.file
+package eyrie.file.instances
 
 import eyrie.file.FilePath.NonEmpty
-import eyrie.file.ops.{EqualityInstances, SubdivisionInstances}
+import eyrie.file.{AbsoluteFile, FilePath, RelativeFile, Relativity}
 
 private[file]
 trait NonEmptyInstances extends SubdivisionInstances[Relativity, FilePath.NonEmpty, RelativeFile, AbsoluteFile]
