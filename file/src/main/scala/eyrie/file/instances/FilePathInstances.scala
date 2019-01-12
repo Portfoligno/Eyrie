@@ -1,6 +1,7 @@
 package eyrie.file.instances
 
-import eyrie.file.{Emptiness, FilePath, Relativity}
+import eyrie.{Emptiness, Relativity}
+import eyrie.file.FilePath
 import eyrie.ops.Subdivision
 
 private[file]

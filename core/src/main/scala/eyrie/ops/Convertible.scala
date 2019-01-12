@@ -2,6 +2,7 @@ package eyrie.ops
 
 trait Convertible[A, B] {
   type Attribute[_]
+  type Parameter
 
   def widen: A => B
 
@@ -9,8 +10,9 @@ trait Convertible[A, B] {
 }
 
 object Convertible {
-  type Aux[Attr[_], A, B] = Convertible[A, B] {
+  type Aux[Attr[_], Param, A, B] = Convertible[A, B] {
     type Attribute[X] = Attr[X]
+    type Parameter = Param
   }
 
   @inline
@@ -31,7 +33,7 @@ object Convertible {
     @inline
     def apply[Attr[_], A](implicit F: Widen[Attr, A]): Widen[Attr, A] = F
 
-    implicit def eyrieWidenInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, A, B]): Aux[Attr, A, B] =
+    implicit def eyrieWidenInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, _, A, B]): Aux[Attr, A, B] =
       new AuxImpl(F.widen)
 
     private

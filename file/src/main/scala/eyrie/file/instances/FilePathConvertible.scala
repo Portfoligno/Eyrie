@@ -1,7 +1,8 @@
 package eyrie.file.instances
 
-import eyrie.file.{AbsoluteFile, Emptiness, FilePath, IdentityFilePath, RelativeFile, Relativity, RootDirectory, ∨}
-import eyrie.ops.{Convertible, PotentialSuccessor}
+import eyrie._
+import eyrie.file.{AbsoluteFile, FilePath, IdentityFilePath, RelativeFile, RootDirectory}
+import eyrie.ops.Convertible
 
 import scala.reflect.ClassTag
 
@@ -16,80 +17,70 @@ class FilePathConvertible[A[_]](implicit A: ClassTag[A[_]]) extends Convertible[
     A.unapply
 
 
-  def of[C, B[_]]: Convertible[A[C], B[C]] =
-    asInstanceOf[Convertible[A[C], B[C]]]
-
-  def ofAux[C, Attr[_], B[_]]: Convertible.Aux[Attr, A[C], B[C]] =
-    asInstanceOf[Convertible.Aux[Attr, A[C], B[C]]]
+  def of[C, Attr[_], Param, B[_]]: Convertible.Aux[Attr, Param, A[C], B[C]] =
+    asInstanceOf[Convertible.Aux[Attr, Param, A[C], B[C]]]
 }
 
 private[file]
 trait ConvertibleInstances extends LowPriorityConvertibleInstances {
   implicit def eyrieFileEmptyConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, FilePath.Empty[C], FilePath[C]] =
-    _emptyConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    Emptiness, True, FilePath.Empty[C], FilePath[C]] =
+    _emptyConvertibleInstance.of[C, Emptiness, True, FilePath]
   implicit def eyrieFileNonEmptyConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, FilePath.NonEmpty[C], FilePath[C]] =
-    _nonEmptyConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    Emptiness, False, FilePath.NonEmpty[C], FilePath[C]] =
+    _nonEmptyConvertibleInstance.of[C, Emptiness, False, FilePath]
   implicit def eyrieFileRelativeConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, FilePath.Relative[C], FilePath[C]] =
-    _relativeConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    Relativity, True, FilePath.Relative[C], FilePath[C]] =
+    _relativeConvertibleInstance.of[C, Relativity, True, FilePath]
   implicit def eyrieFileAbsoluteConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, FilePath.Absolute[C], FilePath[C]] =
-    _absoluteConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    Relativity, False, FilePath.Absolute[C], FilePath[C]] =
+    _absoluteConvertibleInstance.of[C, Relativity, False, FilePath]
 
   implicit def eyrieFileIdentityFilePathRelativityConvertibleInstance[C]: Convertible.Aux[
-    Emptiness, IdentityFilePath[C], FilePath.Relative[C]] =
-    _identityFilePathConvertibleInstance.ofAux[C, Emptiness, FilePath.Relative]
+    Emptiness, True, IdentityFilePath[C], FilePath.Relative[C]] =
+    _identityFilePathConvertibleInstance.of[C, Emptiness, True, FilePath.Relative]
   implicit def eyrieFileRootDirectoryRelativityConvertibleInstance[C]: Convertible.Aux[
-    Emptiness, RootDirectory[C], FilePath.Absolute[C]] =
-    _rootDirectoryConvertibleInstance.ofAux[C, Emptiness, FilePath.Absolute]
+    Emptiness, True, RootDirectory[C], FilePath.Absolute[C]] =
+    _rootDirectoryConvertibleInstance.of[C, Emptiness, True, FilePath.Absolute]
   implicit def eyrieFileRelativeFileRelativityConvertibleInstance[C]: Convertible.Aux[
-    Emptiness, RelativeFile[C], FilePath.Relative[C]] =
-    _relativeFileConvertibleInstance.ofAux[C, Emptiness, FilePath.Relative]
+    Emptiness, False, RelativeFile[C], FilePath.Relative[C]] =
+    _relativeFileConvertibleInstance.of[C, Emptiness, False, FilePath.Relative]
   implicit def eyrieFileAbsoluteFileRelativityConvertibleInstance[C]: Convertible.Aux[
-    Emptiness, AbsoluteFile[C], FilePath.Absolute[C]] =
-    _absoluteFileConvertibleInstance.ofAux[C, Emptiness, FilePath.Absolute]
+    Emptiness, False, AbsoluteFile[C], FilePath.Absolute[C]] =
+    _absoluteFileConvertibleInstance.of[C, Emptiness, False, FilePath.Absolute]
 }
 
 private[file]
 trait LowPriorityConvertibleInstances extends LowPriorityConvertibleInstances1 {
   implicit def eyrieFileIdentityFilePathEmptinessConvertibleInstance[C]: Convertible.Aux[
-    Relativity, IdentityFilePath[C], FilePath.Empty[C]] =
-    _identityFilePathConvertibleInstance.ofAux[C, Relativity, FilePath.Empty]
+    Relativity, True, IdentityFilePath[C], FilePath.Empty[C]] =
+    _identityFilePathConvertibleInstance.of[C, Relativity, True, FilePath.Empty]
   implicit def eyrieFileRootDirectoryEmptinessConvertibleInstance[C]: Convertible.Aux[
-    Relativity, RootDirectory[C], FilePath.Empty[C]] =
-    _rootDirectoryConvertibleInstance.ofAux[C, Relativity, FilePath.Empty]
+    Relativity, False, RootDirectory[C], FilePath.Empty[C]] =
+    _rootDirectoryConvertibleInstance.of[C, Relativity, False, FilePath.Empty]
   implicit def eyrieFileRelativeFileEmptinessConvertibleInstance[C]: Convertible.Aux[
-    Relativity, RelativeFile[C], FilePath.NonEmpty[C]] =
-    _relativeFileConvertibleInstance.ofAux[C, Relativity, FilePath.NonEmpty]
+    Relativity, True, RelativeFile[C], FilePath.NonEmpty[C]] =
+    _relativeFileConvertibleInstance.of[C, Relativity, True, FilePath.NonEmpty]
   implicit def eyrieFileAbsoluteFileEmptinessConvertibleInstance[C]: Convertible.Aux[
-    Relativity, AbsoluteFile[C], FilePath.NonEmpty[C]] =
-    _absoluteFileConvertibleInstance.ofAux[C, Relativity, FilePath.NonEmpty]
+    Relativity, False, AbsoluteFile[C], FilePath.NonEmpty[C]] =
+    _absoluteFileConvertibleInstance.of[C, Relativity, False, FilePath.NonEmpty]
 
   implicit def eyrieFileIdentityFilePathBaseConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, IdentityFilePath[C], FilePath[C]] =
-    _identityFilePathConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    (Emptiness -∏- Relativity)#λ, True ∏ True, IdentityFilePath[C], FilePath[C]] =
+    _identityFilePathConvertibleInstance.of[C, (Emptiness -∏- Relativity)#λ, True ∏ True, FilePath]
   implicit def eyrieFileRootDirectoryBaseConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, RootDirectory[C], FilePath[C]] =
-    _rootDirectoryConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    (Emptiness -∏- Relativity)#λ, True ∏ False, RootDirectory[C], FilePath[C]] =
+    _rootDirectoryConvertibleInstance.of[C, (Emptiness -∏- Relativity)#λ, True ∏ False, FilePath]
   implicit def eyrieFileRelativeFileBaseConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, RelativeFile[C], FilePath[C]] =
-    _relativeFileConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    (Emptiness -∏- Relativity)#λ, False ∏ True, RelativeFile[C], FilePath[C]] =
+    _relativeFileConvertibleInstance.of[C, (Emptiness -∏- Relativity)#λ, False ∏ True, FilePath]
   implicit def eyrieFileAbsoluteFileBaseConvertibleInstance[C]: Convertible.Aux[
-    (Emptiness ∨ Relativity)#λ, AbsoluteFile[C], FilePath[C]] =
-    _absoluteFileConvertibleInstance.ofAux[C, (Emptiness ∨ Relativity)#λ, FilePath]
+    (Emptiness -∏- Relativity)#λ, False ∏ False, AbsoluteFile[C], FilePath[C]] =
+    _absoluteFileConvertibleInstance.of[C, (Emptiness -∏- Relativity)#λ, False ∏ False, FilePath]
 }
 
 private[file]
 trait LowPriorityConvertibleInstances1 {
-  implicit def eyrieFileRelativeFilePotentialSuccessorConvertibleInstance[C]: Convertible.Aux[
-    PotentialSuccessor, RelativeFile[C], FilePath.Relative[C]] =
-    _relativeFileConvertibleInstance.ofAux[C, PotentialSuccessor, FilePath.Relative]
-  implicit def eyrieFileAbsoluteFilePotentialSuccessorConvertibleInstance[C]: Convertible.Aux[
-    PotentialSuccessor, AbsoluteFile[C], FilePath.Absolute[C]] =
-    _absoluteFileConvertibleInstance.ofAux[C, PotentialSuccessor, FilePath.Absolute]
-
   private[instances] lazy val _emptyConvertibleInstance = new FilePathConvertible[FilePath.Empty]
   private[instances] lazy val _nonEmptyConvertibleInstance = new FilePathConvertible[FilePath.NonEmpty]
   private[instances] lazy val _relativeConvertibleInstance = new FilePathConvertible[FilePath.Relative]

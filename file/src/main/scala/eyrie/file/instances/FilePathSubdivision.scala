@@ -1,9 +1,7 @@
 package eyrie.file.instances
 
 import cats.syntax.either._
-import eyrie.file.Emptiness
 import eyrie.ops.Subdivision
-import eyrie.ops.Subdivision.Aux
 
 import scala.reflect.ClassTag
 
@@ -32,12 +30,10 @@ class FilePathSubdivision[Attr[_], A[_], L[_], R[_]](
 }
 
 private[instances]
-class SubdivisionInstances[Attr[_], A[_], L[_], R[_]](
-  implicit L: ClassTag[L[_]], R: ClassTag[R[_]]
-) {
+class SubdivisionInstances[Attr[_], A[_], L[_], R[_]](implicit L: ClassTag[L[_]], R: ClassTag[R[_]]) {
   private
-  lazy val _subdivisionInstance = new FilePathSubdivision[Emptiness, A, L, R]
+  lazy val _subdivisionInstance = new FilePathSubdivision[Attr, A, L, R]
 
-  implicit def eyrieFileSubDivisionInstance[C]: Aux[Emptiness, A[C], L[C], R[C]] =
+  implicit def eyrieFileSubDivisionInstance[C]: Subdivision.Aux[Attr, A[C], L[C], R[C]] =
     _subdivisionInstance.ofAux[C]
 }

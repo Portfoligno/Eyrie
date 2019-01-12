@@ -2,7 +2,8 @@ package eyrie.file.test
 
 import java.nio.file.Paths
 
-import eyrie.file.{Emptiness, FilePath, IdentityFilePath, RelativeFile, Relativity}
+import eyrie.{Emptiness, Relativity}
+import eyrie.file.{FilePath, IdentityFilePath, RelativeFile}
 import eyrie.file.FilePath.Internal
 import eyrie.file.context.Sys
 import org.junit.runner.RunWith

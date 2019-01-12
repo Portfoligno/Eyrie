@@ -2,9 +2,10 @@ package eyrie.file.test
 
 import java.nio.file.Paths
 
+import eyrie.{Emptiness, Relativity}
 import eyrie.file.FilePath.Internal
 import eyrie.file.context.Sys
-import eyrie.file.{Emptiness, FilePath, IdentityFilePath, RelativeFile, Relativity}
+import eyrie.file.{FilePath, IdentityFilePath, RelativeFile}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner

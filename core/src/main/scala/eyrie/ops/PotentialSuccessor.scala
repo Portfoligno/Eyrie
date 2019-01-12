@@ -1,5 +1,6 @@
 package eyrie.ops
 
+import eyrie.{Emptiness, False}
 import simulacrum.typeclass
 
 @typeclass
@@ -18,7 +19,7 @@ object PotentialSuccessor {
   }
 
   implicit def eyrieConvertibleBasedPotentialSuccessorInstance[A, B](
-    implicit F: Convertible.Aux[PotentialSuccessor, B, A], B: Successor[B]
+    implicit F: Convertible.Aux[Emptiness, False, B, A], B: Successor[B]
   ): PotentialSuccessor.Aux[A, B.Prefix, B.Segment] =
     new PotentialSuccessor[A] {
       override

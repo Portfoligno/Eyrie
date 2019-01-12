@@ -11,6 +11,7 @@ dependencies {
   api("org.typelevel:cats-core_2.12:1.5.0")
 
   compileOnly("com.github.mpilquist:simulacrum_2.12:0.14.0")
+  compileOnly("com.chuusai:shapeless_2.12:2.3.3")
 }
 
 tasks.withType<ScalaCompile> {
