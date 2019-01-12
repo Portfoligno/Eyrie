@@ -8,14 +8,6 @@ trait Convertible[A, B] {
   def narrow: B => Option[A]
 }
 
-private
-final class ConvertibleByAttributeAux[Attr[_], A, B](
-  override val widen: A => B
-) extends AnyVal with Convertible.ByAttribute[Attr, A] {
-  override
-  type Out = B
-}
-
 object Convertible {
   type Aux[Attr[_], A, B] = Convertible[A, B] {
     type Attribute[X] = Attr[X]
@@ -25,21 +17,27 @@ object Convertible {
   def apply[A, B](implicit F: Convertible[A, B]): Convertible[A, B] = F
 
 
-  trait ByAttribute[Attr[_], A] extends Any {
+  trait Widen[Attr[_], A] extends Any {
     type Out
 
     def widen: A => Out
   }
 
-  object ByAttribute {
-    type Aux[Attr[_], A, B] = ByAttribute[Attr, A] {
+  object Widen {
+    type Aux[Attr[_], A, B] = Widen[Attr, A] {
       type Out = B
     }
 
     @inline
-    def apply[Attr[_], A](implicit F: ByAttribute[Attr, A]): ByAttribute[Attr, A] = F
+    def apply[Attr[_], A](implicit F: Widen[Attr, A]): Widen[Attr, A] = F
 
-    implicit def eyrieByAttributeInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, A, B]): Aux[Attr, A, B] =
-      new ConvertibleByAttributeAux(F.widen)
+    implicit def eyrieWidenInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, A, B]): Aux[Attr, A, B] =
+      new AuxImpl(F.widen)
+
+    private
+    final class AuxImpl[Attr[_], A, B](override val widen: A => B) extends AnyVal with Widen[Attr, A] {
+      override
+      type Out = B
+    }
   }
 }

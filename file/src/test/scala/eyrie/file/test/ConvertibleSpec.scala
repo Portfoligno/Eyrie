@@ -26,8 +26,8 @@ class ConvertibleSpec extends FreeSpec {
     "widen should be FilePath" in {
       relative.widen: FilePath[Sys]
     }
-    "toOption should work" in {
-      relative.toOption[IdentityFilePath[Sys]]
+    "narrow should work" in {
+      relative.narrow[IdentityFilePath[Sys]]
     }
   }
   "RelativeFile" - {

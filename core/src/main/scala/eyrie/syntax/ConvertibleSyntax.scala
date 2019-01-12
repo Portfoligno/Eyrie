@@ -11,9 +11,9 @@ final class ConvertibleOps[A](private val a: A) extends AnyVal {
   def widen[B](implicit F: Convertible[A, B]): B =
     F.widen(a)
 
-  def toOption[B](implicit F: Convertible[B, A]): Option[B] =
+  def narrow[B](implicit F: Convertible[B, A]): Option[B] =
     F.narrow(a)
 
-  def widenBy[Attr[_]](implicit F: Convertible.ByAttribute[Attr, A]): F.Out =
+  def widenBy[Attr[_]](implicit F: Convertible.Widen[Attr, A]): F.Out =
     F.widen(a)
 }
