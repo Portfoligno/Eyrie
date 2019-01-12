@@ -2,7 +2,7 @@ package eyrie.file.test
 
 import java.nio.file.Paths
 
-import eyrie.{Emptiness, Relativity}
+import eyrie.{Emptiness, False, Relativity, True}
 import eyrie.file.FilePath.Internal
 import eyrie.file.context.Sys
 import eyrie.file.{FilePath, IdentityFilePath, RelativeFile}
@@ -27,11 +27,20 @@ class ConvertibleSpec extends FreeSpec {
     "widen should be FilePath" in {
       relative.widen: FilePath[Sys]
     }
-    "narrow should work" in {
+    "typed narrow should work" in {
       relative.narrow[IdentityFilePath[Sys]]
+    }
+    "narrowBy[Emptiness[True]] should be Option of IdentityFilePath" in {
+      relative.narrowBy[Emptiness[True]]: Option[IdentityFilePath[Sys]]
+    }
+    "narrowBy[Emptiness[False]] should be Option of RelativeFile" in {
+      relative.narrowBy[Emptiness[False]]: Option[RelativeFile[Sys]]
     }
   }
   "RelativeFile" - {
+    "typed widen should work" in {
+      relativeFile.widen[FilePath[Sys]]
+    }
     "widen should be FilePath.Relative" in {
       relativeFile.widen: FilePath.Relative[Sys]
     }
