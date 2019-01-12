@@ -4,12 +4,23 @@ import java.nio.file.{FileSystem, FileSystems}
 
 import eyrie.file.ops.AsJava
 
-sealed trait Sys extends AsJava[FileSystem]
+sealed trait Sys
 
 object Sys {
-  implicit val eyrieFileLocalInstance: Sys =
-    new Sys {
+  implicit val eyrieFileSysInstance: Sys =
+    new Sys { }
+
+  implicit val eyrieFileAsJavaInstance: AsJava.Aux[Sys, FileSystem] =
+    new AsJava[Sys] with AsJava.Ops[FileSystem] {
       override
-      def asJava: FileSystem = FileSystems.getDefault
+      type Out = FileSystem
+
+      override
+      def asJavaOps(a: Sys): AsJava.Ops[FileSystem] =
+        this
+
+      override
+      def asJava: FileSystem =
+        FileSystems.getDefault
     }
 }

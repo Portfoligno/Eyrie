@@ -17,7 +17,7 @@ trait RelativeFilePathSuccessor[C] extends Successor[RelativeFile[C]]  {
 
 private[file]
 object RelativeFilePathSuccessor extends RelativeFilePathSuccessor[Any] {
-  import eyrie.file.syntax.filePathAsJava._
+  import eyrie.file.syntax.asJava._
 
   private
   def relative[S](path: Path): FilePath.Relative[S] =

@@ -20,7 +20,7 @@ trait AbsoluteFilePathDescendant[C] extends Descendant[AbsoluteFile[C]]  {
 
 private[file]
 object AbsoluteFilePathDescendant extends AbsoluteFilePathDescendant[Any] {
-  import eyrie.file.syntax.filePathAsJava._
+  import eyrie.file.syntax.asJava._
 
   private
   def absolute[S](path: Path): FilePath.Absolute[S] =

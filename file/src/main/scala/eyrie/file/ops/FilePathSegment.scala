@@ -12,7 +12,7 @@ trait FilePathSegment[C] extends Segment[FileName[C]] {
 
 private[file]
 object FilePathSegment extends FilePathSegment[Any] {
-  import eyrie.file.syntax.filePathAsJava._
+  import eyrie.file.syntax.asJava._
 
   override
   def singleton(a: FileName[Any]): RelativeFile[Any] =

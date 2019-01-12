@@ -39,18 +39,18 @@ object FilePath extends FileInstances {
   private[file]
   object Internal {
     final case class FileName[C](override val asJava: Path) extends AnyVal
-      with file.FileName[C] with AsJava[Path]
+      with file.FileName[C] with AsJava.Ops[Path]
 
     final case class IdentityFilePath[C](override val asJava: Path) extends AnyVal
-      with file.IdentityFilePath[C] with Relative[C] with Empty[C] with FilePath[C] with AsJava[Path]
+      with file.IdentityFilePath[C] with Relative[C] with Empty[C] with FilePath[C] with AsJava.Ops[Path]
 
     final case class RootDirectory[C](override val asJava: Path) extends AnyVal
-      with file.RootDirectory[C] with Absolute[C] with Empty[C] with FilePath[C] with AsJava[Path]
+      with file.RootDirectory[C] with Absolute[C] with Empty[C] with FilePath[C] with AsJava.Ops[Path]
 
     final case class RelativeFile[C](override val asJava: Path) extends AnyVal
-      with file.RelativeFile[C] with Relative[C] with NonEmpty[C] with FilePath[C] with AsJava[Path]
+      with file.RelativeFile[C] with Relative[C] with NonEmpty[C] with FilePath[C] with AsJava.Ops[Path]
 
     final case class AbsoluteFile[C](override val asJava: Path) extends AnyVal
-      with file.AbsoluteFile[C] with Absolute[C] with NonEmpty[C] with FilePath[C] with AsJava[Path]
+      with file.AbsoluteFile[C] with Absolute[C] with NonEmpty[C] with FilePath[C] with AsJava.Ops[Path]
   }
 }

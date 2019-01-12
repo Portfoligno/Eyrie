@@ -1,5 +1,6 @@
 package eyrie.file
 
 package object syntax {
-  object filePathAsJava extends FilePathAsJavaSyntax
+  object all extends AllSyntax
+  object asJava extends AsJavaSyntax
 }
