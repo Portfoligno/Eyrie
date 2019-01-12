@@ -4,16 +4,16 @@ import java.nio.file.Paths
 
 import eyrie.file.{Emptiness, FilePath, IdentityFilePath, RelativeFile, Relativity}
 import eyrie.file.FilePath.Internal
-import eyrie.file.context.Local
+import eyrie.file.context.Sys
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
 object SubdivisionSpec {
-  val filePath: FilePath[Local] =
+  val filePath: FilePath[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 
-  val relativeFile: FilePath.Relative[Local] =
+  val relativeFile: FilePath.Relative[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 }
 
@@ -24,21 +24,21 @@ class SubdivisionSpec extends FreeSpec {
 
   "FilePath" - {
     "subdivide should be either FilePath.Relative or FilePath.Absolute" in {
-      filePath.subdivide: Either[FilePath.Relative[Local], FilePath.Absolute[Local]]
+      filePath.subdivide: Either[FilePath.Relative[Sys], FilePath.Absolute[Sys]]
     }
     "subdivideBy[Emptiness] should be either FilePath.Empty or FilePath.NonEmpty" in {
-      filePath.subdivideBy[Emptiness]: Either[FilePath.Empty[Local], FilePath.NonEmpty[Local]]
+      filePath.subdivideBy[Emptiness]: Either[FilePath.Empty[Sys], FilePath.NonEmpty[Sys]]
     }
     "subdivideBy[Relativity] should be either FilePath.Relative or FilePath.Absolute" in {
-      filePath.subdivideBy[Relativity]: Either[FilePath.Relative[Local], FilePath.Absolute[Local]]
+      filePath.subdivideBy[Relativity]: Either[FilePath.Relative[Sys], FilePath.Absolute[Sys]]
     }
   }
   "FilePath.Relative" - {
     "subdivide should be either IdentityFilePath or RelativeFile" in {
-      relativeFile.subdivide: Either[IdentityFilePath[Local], RelativeFile[Local]]
+      relativeFile.subdivide: Either[IdentityFilePath[Sys], RelativeFile[Sys]]
     }
     "subdivideBy[Emptiness] should be either IdentityFilePath or RelativeFile" in {
-      relativeFile.subdivideBy[Emptiness]: Either[IdentityFilePath[Local], RelativeFile[Local]]
+      relativeFile.subdivideBy[Emptiness]: Either[IdentityFilePath[Sys], RelativeFile[Sys]]
     }
   }
 }

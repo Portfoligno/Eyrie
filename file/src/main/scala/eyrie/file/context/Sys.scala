@@ -4,11 +4,11 @@ import java.nio.file.{FileSystem, FileSystems}
 
 import eyrie.file.ops.AsJava
 
-sealed trait Local extends AsJava[FileSystem]
+sealed trait Sys extends AsJava[FileSystem]
 
-object Local {
-  implicit val eyrieFileLocalInstance: Local =
-    new Local {
+object Sys {
+  implicit val eyrieFileLocalInstance: Sys =
+    new Sys {
       override
       def asJava: FileSystem = FileSystems.getDefault
     }

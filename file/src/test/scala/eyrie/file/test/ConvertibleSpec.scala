@@ -3,17 +3,17 @@ package eyrie.file.test
 import java.nio.file.Paths
 
 import eyrie.file.FilePath.Internal
-import eyrie.file.context.Local
+import eyrie.file.context.Sys
 import eyrie.file.{Emptiness, FilePath, IdentityFilePath, RelativeFile, Relativity}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
 object ConvertibleSpec {
-  val relative: FilePath.Relative[Local] =
+  val relative: FilePath.Relative[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 
-  val relativeFile: RelativeFile[Local] =
+  val relativeFile: RelativeFile[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 }
 
@@ -24,24 +24,24 @@ class ConvertibleSpec extends FreeSpec {
 
   "FilePath.Relative" - {
     "widen should be FilePath" in {
-      relative.widen: FilePath[Local]
+      relative.widen: FilePath[Sys]
     }
     "toOption should work" in {
-      relative.toOption[IdentityFilePath[Local]]
+      relative.toOption[IdentityFilePath[Sys]]
     }
   }
   "RelativeFile" - {
     "widen should be FilePath.Relative" in {
-      relativeFile.widen: FilePath.Relative[Local]
+      relativeFile.widen: FilePath.Relative[Sys]
     }
     "widen.widen should should be FilePath" in {
-      relativeFile.widen.widen: FilePath[Local]
+      relativeFile.widen.widen: FilePath[Sys]
     }
     "widenBy[Emptiness] should be FilePath.Relative" in {
-      relativeFile.widenBy[Emptiness]: FilePath.Relative[Local]
+      relativeFile.widenBy[Emptiness]: FilePath.Relative[Sys]
     }
     "widenBy[Relativity] should be FilePath.NonEmpty" in {
-      relativeFile.widenBy[Relativity]: FilePath.NonEmpty[Local]
+      relativeFile.widenBy[Relativity]: FilePath.NonEmpty[Sys]
     }
   }
 }

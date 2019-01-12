@@ -3,14 +3,14 @@ package eyrie.file.test
 import java.nio.file.Paths
 
 import eyrie.file.FilePath.Internal
-import eyrie.file.context.Local
+import eyrie.file.context.Sys
 import eyrie.file.{AbsoluteFile, RootDirectory}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
 object DescendantSpec {
-  val absoluteFile: AbsoluteFile[Local] =
+  val absoluteFile: AbsoluteFile[Sys] =
     Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 }
 
@@ -21,7 +21,7 @@ class DescendantSpec extends FreeSpec {
 
   "AbsoluteFile" - {
     "root should be RootDirectory" in {
-      absoluteFile.root: RootDirectory[Local]
+      absoluteFile.root: RootDirectory[Sys]
     }
   }
 }

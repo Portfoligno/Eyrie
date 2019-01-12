@@ -3,17 +3,17 @@ package eyrie.file.test
 import java.nio.file.Paths
 
 import eyrie.file.FilePath.Internal
-import eyrie.file.context.Local
+import eyrie.file.context.Sys
 import eyrie.file.{FileName, FilePath}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
 object PotentialSuccessorSpec {
-  val relative: FilePath.Relative[Local] =
+  val relative: FilePath.Relative[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 
-  val absolute: FilePath.Absolute[Local] =
+  val absolute: FilePath.Absolute[Sys] =
     Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 }
 
@@ -24,18 +24,18 @@ class PotentialSuccessorSpec extends FreeSpec {
 
   "RelativeFile" - {
     "parent should be Option of FilePath.Relative" in {
-      relative.parentOption: Option[FilePath.Relative[Local]]
+      relative.parentOption: Option[FilePath.Relative[Sys]]
     }
     "lastSegment should be Option of FileName" in {
-      relative.lastSegmentOption: Option[FileName[Local]]
+      relative.lastSegmentOption: Option[FileName[Sys]]
     }
   }
   "AbsoluteFile" - {
     "parent should be Option of FilePath.Absolute" in {
-      absolute.parentOption: Option[FilePath.Absolute[Local]]
+      absolute.parentOption: Option[FilePath.Absolute[Sys]]
     }
     "lastSegment should be Option of FileName" in {
-      absolute.lastSegmentOption: Option[FileName[Local]]
+      absolute.lastSegmentOption: Option[FileName[Sys]]
     }
   }
 }

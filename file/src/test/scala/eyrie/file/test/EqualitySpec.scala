@@ -4,13 +4,13 @@ import java.nio.file.Paths
 
 import eyrie.file.FilePath
 import eyrie.file.FilePath.Internal
-import eyrie.file.context.Local
+import eyrie.file.context.Sys
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
 object EqualitySpec {
-  val relative: FilePath.Relative[Local] =
+  val relative: FilePath.Relative[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 
   def testCall: Boolean = {

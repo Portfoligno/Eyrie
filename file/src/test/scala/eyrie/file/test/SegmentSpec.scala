@@ -4,13 +4,13 @@ import java.nio.file.Paths
 
 import eyrie.file.{FileName, RelativeFile}
 import eyrie.file.FilePath.Internal
-import eyrie.file.context.Local
+import eyrie.file.context.Sys
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
 object SegmentSpec {
-  val fileName: FileName[Local] =
+  val fileName: FileName[Sys] =
     Internal.FileName(Paths.get("a/b/c").getFileName)
 }
 
@@ -21,7 +21,7 @@ class SegmentSpec extends FreeSpec {
 
   "FileName" - {
     "singletonPath should be RelativeFile" in {
-      fileName.singletonPath: RelativeFile[Local]
+      fileName.singletonPath: RelativeFile[Sys]
     }
   }
 }
