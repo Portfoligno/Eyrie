@@ -1,38 +1,33 @@
 package eyrie.ops
 
-import eyrie.{Emptiness, False}
 import simulacrum.typeclass
 
 @typeclass
 trait PotentialSuccessor[A] {
-  type Prefix
   type Segment
 
-  def parentOption: A => Option[Prefix]
+  def parentOption: A => Option[A]
   def lastSegmentOption: A => Option[Segment]
 }
 
 object PotentialSuccessor {
-  type Aux[A, B, C] = PotentialSuccessor[A] {
-    type Prefix = B
+  type Aux[A, C] = PotentialSuccessor[A] {
     type Segment = C
   }
 
-  implicit def eyrieConvertibleBasedPotentialSuccessorInstance[A, B](
-    implicit F: Convertible.Aux[Emptiness, False, B, A], B: Successor.ByInput[B]
-  ): PotentialSuccessor.Aux[A, B.Prefix, B.Segment] =
-    new PotentialSuccessor[A] {
+  implicit def eyrieSuccessorBasedPotentialSuccessorInstance[A, B, C](
+    implicit B: Successor[A, B, C], F: Convertible[A, B]
+  ): PotentialSuccessor.Aux[B, C] =
+    new PotentialSuccessor[B] {
       override
-      type Prefix = B.Prefix
-      override
-      type Segment = B.Segment
+      type Segment = C
 
       override
-      def parentOption: A => Option[B.Prefix] =
+      def parentOption: B => Option[B] =
         F.narrow(_).map(B.parent)
 
       override
-      def lastSegmentOption: A => Option[B.Segment] =
+      def lastSegmentOption: B => Option[C] =
         F.narrow(_).map(B.lastSegment)
     }
 }

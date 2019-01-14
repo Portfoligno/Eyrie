@@ -8,7 +8,7 @@ trait PotentialSuccessorSyntax {
 }
 
 final class PotentialSuccessorOps[A](private val a: A) extends AnyVal {
-  def parentOption(implicit A: PotentialSuccessor[A]): Option[A.Prefix] =
+  def parentOption(implicit A: PotentialSuccessor[A]): Option[A] =
     A.parentOption(a)
 
   def lastSegmentOption(implicit A: PotentialSuccessor[A]): Option[A.Segment] =
