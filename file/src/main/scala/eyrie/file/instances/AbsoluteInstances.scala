@@ -5,5 +5,5 @@ import eyrie.file.FilePath.Absolute
 import eyrie.file.{AbsoluteFile, FilePath, RootDirectory}
 
 private[file]
-trait AbsoluteInstances extends SubdivisionInstances[Emptiness, FilePath.Absolute, RootDirectory, AbsoluteFile]
+trait AbsoluteInstances extends SubdivisionInstances[Emptiness, FilePath.Absolute, AbsoluteFile, RootDirectory]
   with EqualityInstances[Absolute]

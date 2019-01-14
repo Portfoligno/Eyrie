@@ -25,21 +25,21 @@ class SubdivisionSpec extends FreeSpec {
 
   "FilePath" - {
     "subdivide should be either FilePath.Relative or FilePath.Absolute" in {
-      filePath.subdivide: Either[FilePath.Relative[Sys], FilePath.Absolute[Sys]]
+      filePath.subdivide: Either[FilePath.Absolute[Sys], FilePath.Relative[Sys]]
     }
     "subdivideBy[Emptiness] should be either FilePath.Empty or FilePath.NonEmpty" in {
-      filePath.subdivideBy[Emptiness]: Either[FilePath.Empty[Sys], FilePath.NonEmpty[Sys]]
+      filePath.subdivideBy[Emptiness]: Either[FilePath.NonEmpty[Sys], FilePath.Empty[Sys]]
     }
     "subdivideBy[Relativity] should be either FilePath.Relative or FilePath.Absolute" in {
-      filePath.subdivideBy[Relativity]: Either[FilePath.Relative[Sys], FilePath.Absolute[Sys]]
+      filePath.subdivideBy[Relativity]: Either[FilePath.Absolute[Sys], FilePath.Relative[Sys]]
     }
   }
   "FilePath.Relative" - {
     "subdivide should be either IdentityFilePath or RelativeFile" in {
-      relativeFile.subdivide: Either[IdentityFilePath[Sys], RelativeFile[Sys]]
+      relativeFile.subdivide: Either[RelativeFile[Sys], IdentityFilePath[Sys]]
     }
     "subdivideBy[Emptiness] should be either IdentityFilePath or RelativeFile" in {
-      relativeFile.subdivideBy[Emptiness]: Either[IdentityFilePath[Sys], RelativeFile[Sys]]
+      relativeFile.subdivideBy[Emptiness]: Either[RelativeFile[Sys], IdentityFilePath[Sys]]
     }
   }
 }
