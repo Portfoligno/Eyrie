@@ -15,6 +15,9 @@ object SuccessorSpec {
 
   val absoluteFile: AbsoluteFile[Sys] =
     Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
+
+  val nonEmpty: FilePath.NonEmpty[Sys] =
+    Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 }
 
 @RunWith(classOf[JUnitRunner])

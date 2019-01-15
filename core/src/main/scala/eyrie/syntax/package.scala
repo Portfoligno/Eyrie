@@ -9,5 +9,6 @@ package object syntax {
   object subdivision extends SubdivisionSyntax
   object successor extends SuccessorSyntax
 
+  object diSuccessor extends DiSuccessorSyntax
   object equality extends EqualitySyntax
 }
