@@ -8,9 +8,9 @@ trait SubdivisionSyntax {
 }
 
 final class SubdivisionOps[A](private val a: A) extends AnyVal {
-  def subdivide(implicit F: Subdivision[A]): Either[F.Left, F.Right] =
-    F.subdivide(a)
+  def subdivide(implicit A: Subdivision.ByInput[A]): Either[A.Left, A.Right] =
+    A.subdivide(a)
 
-  def subdivideBy[Attr[_]](implicit F: Subdivision.ByAttribute[Attr, A]): Either[F.Left, F.Right] =
-    F.subdivide(a)
+  def subdivideBy[Attr[_]](implicit A: Subdivision.ByAttribute[Attr, A]): Either[A.Left, A.Right] =
+    A.subdivide(a)
 }

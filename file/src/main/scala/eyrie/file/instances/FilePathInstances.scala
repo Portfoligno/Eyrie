@@ -12,7 +12,7 @@ trait FilePathInstances extends LowPriorityFilePathInstances with EqualityInstan
 
   implicit def eyrieFileRelativitySubdivisionInstance[C]: Subdivision.Aux[
     Relativity, FilePath[C], FilePath.Absolute[C], FilePath.Relative[C]] =
-    _relativitySubdivisionInstance.ofAux[C]
+    _relativitySubdivisionInstance.of[C]
 }
 
 private[file]
@@ -23,5 +23,5 @@ trait LowPriorityFilePathInstances {
 
   implicit def eyrieFileEmptinessSubdivisionInstance[C]: Subdivision.Aux[
     Emptiness, FilePath[C], FilePath.NonEmpty[C], FilePath.Empty[C]] =
-    _emptinessSubdivisionInstance.ofAux[C]
+    _emptinessSubdivisionInstance.of[C]
 }
