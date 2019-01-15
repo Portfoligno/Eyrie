@@ -52,7 +52,7 @@ trait SuccessorInstances {
     implicit
     A: DiSuccessor[A, L, R, C],
     L: Convertible[L, B],
-    R: Convertible[R, B],
+    R: Convertible[R, B]
   ): Successor[A, B, C] =
     new Successor[A, B, C] {
       override

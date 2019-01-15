@@ -15,6 +15,9 @@ object PotentialSuccessorSpec {
 
   val absolute: FilePath.Absolute[Sys] =
     Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
+
+  val filePath: FilePath[Sys] =
+    Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -23,18 +26,18 @@ class PotentialSuccessorSpec extends FreeSpec {
   import eyrie.syntax.potentialSuccessor._
 
   "RelativeFile" - {
-    "parent should be Option of FilePath.Relative" in {
+    "parentOption should be Option of FilePath.Relative" in {
       relative.parentOption: Option[FilePath.Relative[Sys]]
     }
-    "lastSegment should be Option of FileName" in {
+    "lastSegmentOption should be Option of FileName" in {
       relative.lastSegmentOption: Option[FileName[Sys]]
     }
   }
   "AbsoluteFile" - {
-    "parent should be Option of FilePath.Absolute" in {
+    "parentOption should be Option of FilePath.Absolute" in {
       absolute.parentOption: Option[FilePath.Absolute[Sys]]
     }
-    "lastSegment should be Option of FileName" in {
+    "lastSegmentOption should be Option of FileName" in {
       absolute.lastSegmentOption: Option[FileName[Sys]]
     }
   }
