@@ -7,7 +7,7 @@ trait Successor[A, B, C] {
   def lastSegment: A => C
 }
 
-object Successor {
+object Successor extends SuccessorInstances {
   @inline
   def apply[A, B, C](implicit A: Successor[A, B, C]): Successor[A, B, C] = A
 
@@ -44,4 +44,23 @@ object Successor {
           A.lastSegment
       }
   }
+}
+
+private[ops]
+trait SuccessorInstances {
+  implicit def eyrieDiSuccessorBasedInstance[A, B, C, L, R](
+    implicit
+    A: DiSuccessor[A, L, R, C],
+    L: Convertible[L, B],
+    R: Convertible[R, B],
+  ): Successor[A, B, C] =
+    new Successor[A, B, C] {
+      override
+      def parent: A => B =
+        A.parentEither(_).fold(L.widen, R.widen)
+
+      override
+      def lastSegment: A => C =
+        A.lastSegment
+    }
 }

@@ -41,4 +41,12 @@ class SuccessorSpec extends FreeSpec {
       absoluteFile.lastSegment: FileName[Sys]
     }
   }
+  "FilePath.NonEmpty" - {
+    "parent should be FilePath" in {
+      nonEmpty.parent: FilePath[Sys]
+    }
+    "lastSegment should be FileName" in {
+      nonEmpty.lastSegment: FileName[Sys]
+    }
+  }
 }

@@ -9,6 +9,9 @@ trait DiSuccessor[A, L, R, C] {
 }
 
 object DiSuccessor {
+  @inline
+  def apply[A, L, R, C](implicit A: DiSuccessor[A, L, R, C]): DiSuccessor[A, L, R, C] = A
+
   implicit def eyrieSubdivisionBasedInstance[A, LA, RA, LB, RB, C](
     implicit
     F: Subdivision[A, LA, RA],
