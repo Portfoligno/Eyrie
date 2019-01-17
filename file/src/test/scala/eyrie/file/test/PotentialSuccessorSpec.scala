@@ -25,7 +25,7 @@ class PotentialSuccessorSpec extends FreeSpec {
   import PotentialSuccessorSpec._
   import eyrie.syntax.potentialSuccessor._
 
-  "RelativeFile" - {
+  "FilePath.Relative" - {
     "parentOption should be Option of FilePath.Relative" in {
       relative.parentOption: Option[FilePath.Relative[Sys]]
     }
@@ -33,7 +33,7 @@ class PotentialSuccessorSpec extends FreeSpec {
       relative.lastSegmentOption: Option[FileName[Sys]]
     }
   }
-  "AbsoluteFile" - {
+  "FilePath.Absolute" - {
     "parentOption should be Option of FilePath.Absolute" in {
       absolute.parentOption: Option[FilePath.Absolute[Sys]]
     }
