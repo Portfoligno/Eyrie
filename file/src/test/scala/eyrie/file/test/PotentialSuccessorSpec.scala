@@ -41,4 +41,12 @@ class PotentialSuccessorSpec extends FreeSpec {
       absolute.lastSegmentOption: Option[FileName[Sys]]
     }
   }
+  "FilePath" - {
+    "parentOption should be Option of FilePath" in {
+      filePath.parentOption: Option[FilePath[Sys]]
+    }
+    "lastSegmentOption should be Option of FileName" in {
+      filePath.lastSegmentOption: Option[FileName[Sys]]
+    }
+  }
 }

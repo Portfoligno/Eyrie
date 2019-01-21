@@ -1,5 +1,7 @@
 package eyrie.ops
 
+import cats.instances.all._
+import cats.syntax.compose._
 import simulacrum.typeclass
 
 trait PotentialSuccessor[A, C] {
@@ -8,7 +10,7 @@ trait PotentialSuccessor[A, C] {
 }
 
 object PotentialSuccessor {
-  implicit def eyrieSuccessorBasedPotentialSuccessorInstance[A, B, C](
+  implicit def eyrieSuccessorBasedInstance[A, B, C](
     implicit B: Successor[A, B, C], F: Convertible[A, B]
   ): PotentialSuccessor[B, C] =
     new PotentialSuccessor[B, C] {
@@ -19,6 +21,22 @@ object PotentialSuccessor {
       override
       def lastSegmentOption: B => Option[C] =
         F.narrow(_).map(B.lastSegment)
+    }
+
+  implicit def eyrieDiPotentialSuccessorBasedInstance[A, C, L, R](
+    implicit
+    A: DiPotentialSuccessor[A, L, R, C],
+    L: Convertible[L, A],
+    R: Convertible[R, A]
+  ): PotentialSuccessor[A, C] =
+    new PotentialSuccessor[A, C] {
+      override
+      def parentOption: A => Option[A] =
+        A.parentEitherOption >>> (_.map(_.fold(L.widen, R.widen)))
+
+      override
+      def lastSegmentOption: A => Option[C] =
+        A.lastSegmentOption
     }
 
 
