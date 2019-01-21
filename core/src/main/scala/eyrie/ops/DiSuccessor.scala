@@ -14,18 +14,18 @@ object DiSuccessor {
 
   implicit def eyrieSubdivisionBasedInstance[A, LA, RA, LB, RB, C](
     implicit
-    F: Subdivision[A, LA, RA],
+    A: Subdivision[A, LA, RA],
     LA: Successor[LA, LB, C],
     RA: Successor[RA, RB, C]
   ): DiSuccessor[A, LB, RB, C] =
     new DiSuccessor[A, LB, RB, C] {
       override
       def parentEither: A => Either[LB, RB] =
-        F.subdivide(_).bimap(LA.parent, RA.parent)
+        A.subdivide(_).bimap(LA.parent, RA.parent)
 
       override
       def lastSegment: A => C =
-        F.subdivide(_).fold(LA.lastSegment, RA.lastSegment)
+        A.subdivide(_).fold(LA.lastSegment, RA.lastSegment)
     }
 
 
