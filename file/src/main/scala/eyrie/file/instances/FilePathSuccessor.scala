@@ -4,18 +4,21 @@ import java.nio.file.Path
 
 import eyrie.file.FilePath.Internal
 import eyrie.file.{AbsoluteFile, FileName, FilePath, RelativeFile, RootDirectory}
-import eyrie.ops.{Descendant, Successor}
+import eyrie.ops.{Descendant, Successor, TrivialDescendant}
 
 private[file]
 trait FilePathSuccessorInstances {
-  implicit def eyrieFileRelativeSuccessorByPrefixInstance[C]: Successor[
+  implicit def eyrieFileRelativeSuccessorInstance[C]: Successor[
     RelativeFile[C], FilePath.Relative[C], FileName[C]] =
     RelativeFilePathSuccessor.asInstanceOf[Successor[RelativeFile[C], FilePath.Relative[C], FileName[C]]]
 
-  implicit def eyrieFileAbsoluteDescendantByPrefixInstance[C]: Successor[
+  implicit def eyrieFileAbsoluteDescendantInstance[C]: Successor[
     AbsoluteFile[C], FilePath.Absolute[C], FileName[C]] with Descendant[AbsoluteFile[C], RootDirectory[C]] =
     AbsoluteFilePathDescendant.asInstanceOf[Successor[
       AbsoluteFile[C], FilePath.Absolute[C], FileName[C]] with Descendant[AbsoluteFile[C], RootDirectory[C]]]
+
+  implicit def eyrieFileTrivialDescendantInstance[C]: TrivialDescendant[RootDirectory[C]] =
+    TrivialFilePathDescendant.asInstanceOf[TrivialDescendant[RootDirectory[C]]]
 }
 
 private
@@ -63,4 +66,11 @@ object AbsoluteFilePathDescendant extends Successor[
   override
   def root: AbsoluteFile[Any] => RootDirectory[Any] =
     a => Internal.RootDirectory(a.asJava.getRoot)
+}
+
+private
+object TrivialFilePathDescendant extends TrivialDescendant[RootDirectory[Any]] {
+  override
+  def root: RootDirectory[Any] => RootDirectory[Any] =
+    identity
 }

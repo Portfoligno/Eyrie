@@ -15,6 +15,7 @@ dependencies {
 
   testImplementation("junit:junit:4.12")
   testImplementation("org.scalatest:scalatest_2.12:3.0.5")
+  testCompileOnly("com.chuusai:shapeless_2.12:2.3.3")
 }
 
 tasks.withType<ScalaCompile> {

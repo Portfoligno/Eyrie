@@ -8,10 +8,14 @@ import eyrie.file.{AbsoluteFile, RootDirectory}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
+import shapeless.test.illTyped
 
 object DescendantSpec {
   val absoluteFile: AbsoluteFile[Sys] =
     Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
+
+  val rootDirectory: RootDirectory[Sys] =
+    Internal.RootDirectory(Paths.get("a/b/c").toAbsolutePath.getRoot)
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -22,6 +26,11 @@ class DescendantSpec extends FreeSpec {
   "AbsoluteFile" - {
     "root should be RootDirectory" in {
       absoluteFile.root: RootDirectory[Sys]
+    }
+  }
+  "RootDirectory" - {
+    "root should not be available" in {
+      illTyped("""rootDirectory.root""")
     }
   }
 }
