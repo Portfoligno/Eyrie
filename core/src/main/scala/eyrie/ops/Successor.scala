@@ -1,5 +1,6 @@
 package eyrie.ops
 
+import eyrie.instances.{SuccessorByInputInstances, SuccessorInstances}
 import simulacrum.typeclass
 
 trait Successor[A, B, C] {
@@ -21,46 +22,10 @@ object Successor extends SuccessorInstances {
     def lastSegment: A => Segment
   }
 
-  object ByInput {
+  object ByInput extends SuccessorByInputInstances {
     type Aux[A, B, C] = ByInput[A] {
       type Prefix = B
       type Segment = C
     }
-
-    implicit def eyrieByInputInstance[A, B, C](implicit A: Successor[A, B, C]): Successor.ByInput.Aux[A, B, C] =
-      new Successor.ByInput[A] {
-        override
-        type Prefix = B
-
-        override
-        type Segment = C
-
-        override
-        def parent: A => B =
-          A.parent
-
-        override
-        def lastSegment: A => C =
-          A.lastSegment
-      }
   }
-}
-
-private[ops]
-trait SuccessorInstances {
-  implicit def eyrieDiSuccessorBasedInstance[A, B, C, L, R](
-    implicit
-    A: DiSuccessor[A, L, R, C],
-    L: Convertible[L, B],
-    R: Convertible[R, B]
-  ): Successor[A, B, C] =
-    new Successor[A, B, C] {
-      override
-      def parent: A => B =
-        A.parentEither(_).fold(L.widen, R.widen)
-
-      override
-      def lastSegment: A => C =
-        A.lastSegment
-    }
 }

@@ -1,7 +1,6 @@
 package eyrie.ops
 
-import cats.instances.all._
-import cats.syntax.compose._
+import eyrie.instances.{PotentialSuccessorByInputInstances, PotentialSuccessorInstances}
 import simulacrum.typeclass
 
 trait PotentialSuccessor[A, C] {
@@ -9,35 +8,9 @@ trait PotentialSuccessor[A, C] {
   def lastSegmentOption: A => Option[C]
 }
 
-object PotentialSuccessor {
-  implicit def eyrieSuccessorBasedInstance[A, B, C](
-    implicit B: Successor[A, B, C], F: Convertible[A, B]
-  ): PotentialSuccessor[B, C] =
-    new PotentialSuccessor[B, C] {
-      override
-      def parentOption: B => Option[B] =
-        F.narrow(_).map(B.parent)
-
-      override
-      def lastSegmentOption: B => Option[C] =
-        F.narrow(_).map(B.lastSegment)
-    }
-
-  implicit def eyrieDiPotentialSuccessorBasedInstance[A, C, L, R](
-    implicit
-    A: DiPotentialSuccessor[A, L, R, C],
-    L: Convertible[L, A],
-    R: Convertible[R, A]
-  ): PotentialSuccessor[A, C] =
-    new PotentialSuccessor[A, C] {
-      override
-      def parentOption: A => Option[A] =
-        A.parentEitherOption >>> (_.map(_.fold(L.widen, R.widen)))
-
-      override
-      def lastSegmentOption: A => Option[C] =
-        A.lastSegmentOption
-    }
+object PotentialSuccessor extends PotentialSuccessorInstances  {
+  @inline
+  def apply[A, C](implicit A: PotentialSuccessor[A, C]): PotentialSuccessor[A, C] = A
 
 
   @typeclass
@@ -48,23 +21,9 @@ object PotentialSuccessor {
     def lastSegmentOption: A => Option[Segment]
   }
 
-  object ByInput {
+  object ByInput extends PotentialSuccessorByInputInstances {
     type Aux[A, C] = ByInput[A] {
       type Segment = C
     }
-
-    implicit def eyrieByInputInstance[A, C](implicit A: PotentialSuccessor[A, C]): Aux[A, C] =
-      new ByInput[A] {
-        override
-        type Segment = C
-
-        override
-        def parentOption: A => Option[A] =
-          A.parentOption
-
-        override
-        def lastSegmentOption: A => Option[C] =
-          A.lastSegmentOption
-      }
   }
 }

@@ -1,5 +1,6 @@
 package eyrie.ops
 
+import eyrie.instances.{SubdivisionByAttributeInstances, SubdivisionByInputInstances}
 import simulacrum.typeclass
 
 trait Subdivision[A, L, R] {
@@ -24,7 +25,7 @@ object Subdivision {
     def subdivide: A => Either[Left, Right]
   }
 
-  object ByAttribute {
+  object ByAttribute extends SubdivisionByAttributeInstances {
     type Aux[Attr[_], A, L, R] = ByAttribute[Attr, A] {
       type Left = L
       type Right = R
@@ -32,20 +33,6 @@ object Subdivision {
 
     @inline
     def apply[Attr[_], A](implicit A: ByAttribute[Attr, A]): ByAttribute[Attr, A] = A
-
-    implicit def eyrieByAttributeInstance[Attr[_], A, L, R](
-      implicit F: Subdivision.Aux[Attr, A, L, R]
-    ): Aux[Attr, A, L, R] =
-      new ByAttribute[Attr, A] {
-        override
-        type Left = L
-        override
-        type Right = R
-
-        override
-        def subdivide: A => Either[L, R] =
-          F.subdivide
-      }
   }
 
 
@@ -58,27 +45,11 @@ object Subdivision {
     def subdivide: A => Either[Left, Right]
   }
 
-  object ByInput {
+  object ByInput extends SubdivisionByInputInstances {
     type Aux[Attr[_], A, L, R] = ByInput[A] {
       type Attribute[X] = Attr[X]
       type Left = L
       type Right = R
     }
-
-    implicit def eyrieByAttributeInstance[Attr[_], A, L, R](
-      implicit F: Subdivision.Aux[Attr, A, L, R]
-    ): Aux[Attr, A, L, R] =
-      new ByInput[A] {
-        override
-        type Attribute[X] = Attr[X]
-        override
-        type Left = L
-        override
-        type Right = R
-
-        override
-        def subdivide: A => Either[L, R] =
-          F.subdivide
-      }
   }
 }

@@ -1,5 +1,6 @@
 package eyrie.ops
 
+import eyrie.instances.DescendantByInputInstances
 import simulacrum.typeclass
 
 trait Descendant[A, B, C, D] extends Successor[A, B, C] {
@@ -18,37 +19,11 @@ object Descendant {
     def root: A => Root
   }
 
-  object ByInput {
+  object ByInput extends DescendantByInputInstances {
     type Aux[A, B, C, D] = ByInput[A] {
       type Prefix = B
       type Segment = C
       type Root = D
     }
-
-    implicit def eyrieByInputInstance[A, B, C, D](
-      implicit A: Descendant[A, B, C, D]
-    ): Descendant.ByInput.Aux[A, B, C, D] =
-      new Descendant.ByInput[A] {
-        override
-        type Prefix = B
-
-        override
-        type Segment = C
-
-        override
-        type Root = D
-
-        override
-        def parent: A => B =
-          A.parent
-
-        override
-        def lastSegment: A => C =
-          A.lastSegment
-
-        override
-        def root: A => D =
-          A.root
-      }
   }
 }

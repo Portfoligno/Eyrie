@@ -1,5 +1,7 @@
 package eyrie.ops
 
+import eyrie.instances.{ConvertibleByAttributeInstances, ConvertibleByQualityInstances}
+
 trait Convertible[A, B] {
   type Attribute[_]
   type Parameter
@@ -27,28 +29,13 @@ object Convertible {
     def narrow: Out => Option[A]
   }
 
-  object ByAttribute {
+  object ByAttribute extends ConvertibleByAttributeInstances {
     type Aux[Attr[_], A, B] = ByAttribute[Attr, A] {
       type Out = B
     }
 
     @inline
     def apply[Attr[_], A](implicit F: ByAttribute[Attr, A]): ByAttribute[Attr, A] = F
-
-
-    implicit def eyrieByAttributeInstance[Attr[_], A, B](implicit F: Convertible.Aux[Attr, _, A, B]): Aux[Attr, A, B] =
-      new ByAttribute[Attr, A] {
-        override
-        type Out = B
-
-        override
-        def widen: A => B =
-          F.widen
-
-        override
-        def narrow: B => Option[A] =
-          F.narrow
-      }
   }
 
 
@@ -60,29 +47,12 @@ object Convertible {
     def narrow: B => Option[Out]
   }
 
-  object ByQuality {
+  object ByQuality extends ConvertibleByQualityInstances {
     type Aux[Qual, A, B] = ByQuality[Qual, B] {
       type Out = A
     }
 
     @inline
     def apply[Qual, B](implicit F: ByQuality[Qual, B]): ByQuality[Qual, B] = F
-
-
-    implicit def eyrieByQualityInstance[Attr[_], Param, A, B](
-      implicit F: Convertible.Aux[Attr, Param, A, B]
-    ): Aux[Attr[Param], A, B] =
-      new ByQuality[Attr[Param], B] {
-        override
-        type Out = A
-
-        override
-        def widen: A => B =
-          F.widen
-
-        override
-        def narrow: B => Option[A] =
-          F.narrow
-      }
   }
 }
