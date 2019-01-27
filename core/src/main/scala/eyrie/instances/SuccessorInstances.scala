@@ -25,7 +25,7 @@ trait SuccessorInstances {
 
 private[eyrie]
 trait SuccessorByInputInstances {
-  implicit def eyrieByInputInstance[A, B, C](implicit A: Successor[A, B, C]): Successor.ByInput.Aux[A, B, C] =
+  implicit def eyrieSuccessorByInputInstance[A, B, C](implicit A: Successor[A, B, C]): Successor.ByInput.Aux[A, B, C] =
     new Successor.ByInput[A] {
       override
       type Prefix = B
@@ -76,7 +76,9 @@ trait PotentialSuccessorInstances {
 
 private[eyrie]
 trait PotentialSuccessorByInputInstances {
-  implicit def eyrieByInputInstance[A, C](implicit A: PotentialSuccessor[A, C]): PotentialSuccessor.ByInput.Aux[A, C] =
+  implicit def eyriePotentialSuccessorByInputInstance[A, C](
+    implicit A: PotentialSuccessor[A, C]
+  ): PotentialSuccessor.ByInput.Aux[A, C] =
     new PotentialSuccessor.ByInput[A] {
       override
       type Segment = C

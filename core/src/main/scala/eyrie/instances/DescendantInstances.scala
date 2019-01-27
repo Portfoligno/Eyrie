@@ -8,7 +8,7 @@ import scala.Function.const
 
 private[eyrie]
 trait DescendantInstances {
-  implicit def eyrieSubdivisionBasedInstance[A, LA, RA, B](
+  implicit def eyrieDescendantBasedInstance[A, LA, RA, B](
     implicit
     A: Subdivision[A, LA, RA],
     LA: Descendant[LA, B],
@@ -19,10 +19,18 @@ trait DescendantInstances {
       def root: A => B =
         A.subdivide(_).fold(LA.root, RA.root)
     }
+
+  implicit def eyrieNonDescendantBasedInstance[A, LA, RA](
+    implicit
+    A: Subdivision[A, LA, RA],
+    LA: NonDescendant[LA],
+    RA: NonDescendant[RA]
+  ): NonDescendant[A] =
+    eyrieDescendantBasedInstance[A, LA, RA, Nothing]
 }
 
 private[eyrie]
-trait DescendantByInputInstances extends LowPriorityDescendantByInputInstances {
+trait DescendantByInputInstances {
   implicit def eyrieTrivialByInputInstance[A](
     implicit A: TrivialDescendant[A]
   ): Descendant.ByInput.Aux[A, A] =
@@ -39,11 +47,8 @@ trait DescendantByInputInstances extends LowPriorityDescendantByInputInstances {
       def root: A => A =
         A.root
     }
-}
 
-private[eyrie]
-trait LowPriorityDescendantByInputInstances {
-  implicit def eyrieByInputInstance[A, B](
+  implicit def eyrieDescendantByInputInstance[A, B](
     implicit A: Descendant[A, B]
   ): Descendant.ByInput.Aux[A, B] =
     new Descendant.ByInput[A] {
@@ -58,7 +63,7 @@ trait LowPriorityDescendantByInputInstances {
 
 private[eyrie]
 trait PotentialDescendantInstances {
-  implicit def eyrieLeftSubdivisionBasedInstance[A, LA, RA, B](
+  implicit def eyrieLeftDescendantBasedInstance[A, LA, RA, B](
     implicit
     A: Subdivision[A, LA, RA],
     LA: Descendant[LA, B],
@@ -70,7 +75,7 @@ trait PotentialDescendantInstances {
         A.subdivide(_).fold(LA.root >>> (Some(_)), const(None))
     }
 
-  implicit def eyrieRightSubdivisionBasedInstance[A, LA, RA, B](
+  implicit def eyrieRightDescendantBasedInstance[A, LA, RA, B](
     implicit
     A: Subdivision[A, LA, RA],
     LA: NonDescendant[LA],
@@ -85,7 +90,7 @@ trait PotentialDescendantInstances {
 
 private[eyrie]
 trait PotentialDescendantByInputInstances {
-  implicit def eyrieByInputInstance[A, D](
+  implicit def eyriePotentialDescendantByInputInstance[A, D](
     implicit A: PotentialDescendant[A, D]
   ): PotentialDescendant.ByInput.Aux[A, D] =
     new PotentialDescendant.ByInput[A] {

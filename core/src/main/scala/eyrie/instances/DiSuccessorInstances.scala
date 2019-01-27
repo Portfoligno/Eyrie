@@ -7,7 +7,7 @@ import eyrie.ops._
 
 private[eyrie]
 trait DiSuccessorInstances {
-  implicit def eyrieSubdivisionBasedInstance[A, LA, RA, LB, RB, C](
+  implicit def eyrieSuccessorBasedInstance[A, LA, RA, LB, RB, C](
     implicit
     A: Subdivision[A, LA, RA],
     LA: Successor[LA, LB, C],
@@ -26,7 +26,7 @@ trait DiSuccessorInstances {
 
 private[eyrie]
 trait DiSuccessorByInputInstances {
-  implicit def eyrieByInputInstance[A, L, R, C](
+  implicit def eyrieDiSuccessorByInputInstance[A, L, R, C](
     implicit A: DiSuccessor[A, L, R, C]
   ): DiSuccessor.ByInput.Aux[A, L, R, C] =
     new DiSuccessor.ByInput[A] {
@@ -49,7 +49,7 @@ trait DiSuccessorByInputInstances {
 
 private[eyrie]
 trait DiPotentialSuccessorInstances {
-  implicit def eyrieSubdivisionBasedInstance[A, L, R, C](
+  implicit def eyriePotentialSuccessorBasedInstance[A, L, R, C](
     implicit
     A: Subdivision[A, L, R],
     L: PotentialSuccessor[L, C],
@@ -68,7 +68,7 @@ trait DiPotentialSuccessorInstances {
 
 private[eyrie]
 trait DiPotentialSuccessorByInputInstances {
-  implicit def eyrieByInputInstance[A, L, R, C](
+  implicit def eyrieDiPotentialSuccessorByInputInstance[A, L, R, C](
     implicit A: DiPotentialSuccessor[A, L, R, C]
   ): DiPotentialSuccessor.ByInput.Aux[A, L, R, C] =
     new DiPotentialSuccessor.ByInput[A] {

@@ -4,7 +4,7 @@ import eyrie.ops.Subdivision
 
 private[eyrie]
 trait SubdivisionByAttributeInstances {
-  implicit def eyrieByAttributeInstance[Attr[_], A, L, R](
+  implicit def eyrieSubdivisionByAttributeInstance[Attr[_], A, L, R](
     implicit F: Subdivision.Aux[Attr, A, L, R]
   ): Subdivision.ByAttribute.Aux[Attr, A, L, R] =
     new Subdivision.ByAttribute[Attr, A] {
@@ -21,7 +21,7 @@ trait SubdivisionByAttributeInstances {
 
 private[eyrie]
 trait SubdivisionByInputInstances {
-  implicit def eyrieByInputInstance[Attr[_], A, L, R](
+  implicit def eyrieSubdivisionByInputInstance[Attr[_], A, L, R](
     implicit F: Subdivision.Aux[Attr, A, L, R]
   ): Subdivision.ByInput.Aux[Attr, A, L, R] =
     new Subdivision.ByInput[A] {
