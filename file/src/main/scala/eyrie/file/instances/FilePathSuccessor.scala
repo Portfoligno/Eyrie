@@ -12,10 +12,10 @@ trait FilePathSuccessorInstances {
     RelativeFile[C], FilePath.Relative[C], FileName[C]] =
     RelativeFilePathSuccessor.asInstanceOf[Successor[RelativeFile[C], FilePath.Relative[C], FileName[C]]]
 
-  implicit def eyrieFileAbsoluteDescendantByPrefixInstance[C]: Descendant[
-    AbsoluteFile[C], FilePath.Absolute[C], FileName[C], RootDirectory[C]] =
-    AbsoluteFilePathDescendant.asInstanceOf[Descendant[
-      AbsoluteFile[C], FilePath.Absolute[C], FileName[C], RootDirectory[C]]]
+  implicit def eyrieFileAbsoluteDescendantByPrefixInstance[C]: Successor[
+    AbsoluteFile[C], FilePath.Absolute[C], FileName[C]] with Descendant[AbsoluteFile[C], RootDirectory[C]] =
+    AbsoluteFilePathDescendant.asInstanceOf[Successor[
+      AbsoluteFile[C], FilePath.Absolute[C], FileName[C]] with Descendant[AbsoluteFile[C], RootDirectory[C]]]
 }
 
 private
@@ -40,8 +40,8 @@ object RelativeFilePathSuccessor extends Successor[RelativeFile[Any], FilePath.R
 }
 
 private
-object AbsoluteFilePathDescendant extends Descendant[
-  AbsoluteFile[Any], FilePath.Absolute[Any], FileName[Any], RootDirectory[Any]] {
+object AbsoluteFilePathDescendant extends Successor[
+  AbsoluteFile[Any], FilePath.Absolute[Any], FileName[Any]] with Descendant[AbsoluteFile[Any], RootDirectory[Any]] {
   import eyrie.file.syntax.asJava._
 
   private
