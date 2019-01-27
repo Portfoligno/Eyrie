@@ -1,13 +1,13 @@
 package eyrie.ops
 
-import eyrie.instances.DescendantByInputInstances
+import eyrie.instances.{DescendantByInputInstances, DescendantInstances}
 import simulacrum.typeclass
 
 trait Descendant[A, B] {
   def root: A => B
 }
 
-object Descendant {
+object Descendant extends DescendantInstances {
   @inline
   def apply[A, B](implicit A: Descendant[A, B]): Descendant[A, B] = A
 

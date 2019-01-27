@@ -1,6 +1,21 @@
 package eyrie.instances
 
-import eyrie.ops.{Descendant, TrivialDescendant}
+import eyrie.ops.{Descendant, Subdivision, TrivialDescendant}
+
+private[eyrie]
+trait DescendantInstances {
+  implicit def eyrieSubdivisionBasedInstance[A, LA, RA, B](
+    implicit
+    A: Subdivision[A, LA, RA],
+    LA: Descendant[LA, B],
+    RA: Descendant[RA, B]
+  ): Descendant[A, B] =
+    new Descendant[A, B] {
+      override
+      def root: A => B =
+        A.subdivide(_).fold(LA.root, RA.root)
+    }
+}
 
 private[eyrie]
 trait DescendantByInputInstances extends LowPriorityDescendantByInputInstances {
