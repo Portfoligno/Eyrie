@@ -31,23 +31,6 @@ trait DescendantInstances {
 
 private[eyrie]
 trait DescendantByInputInstances {
-  implicit def eyrieTrivialByInputInstance[A](
-    implicit A: TrivialDescendant[A]
-  ): Descendant.ByInput.Aux[A, A] =
-    eyrieAmbiguousTrivialByInputInstance
-
-  implicit def eyrieAmbiguousTrivialByInputInstance[A](
-    implicit A: TrivialDescendant[A]
-  ): Descendant.ByInput.Aux[A, A] =
-    new Descendant.ByInput[A] {
-      override
-      type Root = A
-
-      override
-      def root: A => A =
-        A.root
-    }
-
   implicit def eyrieDescendantByInputInstance[A, B](
     implicit A: Descendant[A, B]
   ): Descendant.ByInput.Aux[A, B] =
@@ -59,6 +42,16 @@ trait DescendantByInputInstances {
       def root: A => B =
         A.root
     }
+
+  implicit def eyrieTrivialDescendantByInputInstance[A](
+    implicit A: TrivialDescendant[A]
+  ): Descendant.ByInput.Aux[A, A] =
+    eyrieDescendantByInputInstance[A, A]
+
+  implicit def eyrieAmbiguousTrivialDescendantByInputInstance[A](
+    implicit A: TrivialDescendant[A]
+  ): Descendant.ByInput.Aux[A, A] =
+    eyrieDescendantByInputInstance[A, A]
 }
 
 private[eyrie]
@@ -90,15 +83,60 @@ trait PotentialDescendantInstances {
 
 private[eyrie]
 trait PotentialDescendantByInputInstances {
-  implicit def eyriePotentialDescendantByInputInstance[A, D](
-    implicit A: PotentialDescendant[A, D]
-  ): PotentialDescendant.ByInput.Aux[A, D] =
+  implicit def eyriePotentialDescendantByInputInstance[A, B](
+    implicit A: PotentialDescendant[A, B]
+  ): PotentialDescendant.ByInput.Aux[A, B] =
     new PotentialDescendant.ByInput[A] {
       override
-      type Root = D
+      type Root = B
 
       override
-      def rootOption: A => Option[D] =
+      def rootOption: A => Option[B] =
         A.rootOption
     }
+
+  implicit def eyrieLeftTrivialPotentialDescendantByInputInstance[A, B](
+    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, B, _]
+  ): PotentialDescendant.ByInput.Aux[A, B] =
+    eyriePotentialDescendantByInputInstance[A, B]
+
+  implicit def eyrieLeftAmbiguousTrivialPotentialDescendantByInputInstance[A, B](
+    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, B, _]
+  ): PotentialDescendant.ByInput.Aux[A, B] =
+    eyriePotentialDescendantByInputInstance[A, B]
+
+  implicit def eyrieRightTrivialPotentialDescendantByInputInstance[A, B](
+    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, _, B]
+  ): PotentialDescendant.ByInput.Aux[A, B] =
+    eyriePotentialDescendantByInputInstance[A, B]
+
+  implicit def eyrieRightAmbiguousTrivialPotentialDescendantByInputInstance[A, B](
+    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, _, B]
+  ): PotentialDescendant.ByInput.Aux[A, B] =
+    eyriePotentialDescendantByInputInstance[A, B]
+}
+
+private[eyrie]
+trait PotentialDescendantTrivialByInputInstances {
+  implicit def eyrieLeftPotentialDescendantTrivialByInputInstance[A, B](
+    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, B, _]
+  ): PotentialDescendant.TrivialByInput.Aux[A, B] =
+    new EyriePotentialDescendantInstance[A, B](A)
+
+  implicit def eyrieRightPotentialDescendantTrivialByInputInstance[A, B](
+    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, _, B]
+  ): PotentialDescendant.TrivialByInput.Aux[A, B] =
+    new EyriePotentialDescendantInstance[A, B](A)
+
+  private
+  class EyriePotentialDescendantInstance[A, B](
+    val A: PotentialDescendant[A, B]
+  ) extends PotentialDescendant.TrivialByInput[A] {
+    override
+    type Root = B
+
+    override
+    def asRoot: A => Option[B] =
+      A.rootOption
+  }
 }

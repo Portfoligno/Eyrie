@@ -22,7 +22,7 @@ class FilePathConvertible[A[_]](implicit A: ClassTag[A[_]]) extends Convertible[
 }
 
 private[file]
-trait ConvertibleInstances extends LowPriorityConvertibleInstances {
+trait ConvertibleInstances extends ConvertibleLowPriorityInstances {
   implicit def eyrieFileEmptyConvertibleInstance[C]: Convertible.Aux[
     Emptiness, True, FilePath.Empty[C], FilePath[C]] =
     _emptyConvertibleInstance.of[C, Emptiness, True, FilePath]
@@ -51,7 +51,7 @@ trait ConvertibleInstances extends LowPriorityConvertibleInstances {
 }
 
 private[file]
-trait LowPriorityConvertibleInstances extends LowPriorityConvertibleInstances1 {
+trait ConvertibleLowPriorityInstances extends ConvertibleLowPriorityInstances1 {
   implicit def eyrieFileIdentityFilePathEmptinessConvertibleInstance[C]: Convertible.Aux[
     Relativity, True, IdentityFilePath[C], FilePath.Empty[C]] =
     _identityFilePathConvertibleInstance.of[C, Relativity, True, FilePath.Empty]
@@ -80,7 +80,7 @@ trait LowPriorityConvertibleInstances extends LowPriorityConvertibleInstances1 {
 }
 
 private[file]
-trait LowPriorityConvertibleInstances1 {
+trait ConvertibleLowPriorityInstances1 {
   private[instances] lazy val _emptyConvertibleInstance = new FilePathConvertible[FilePath.Empty]
   private[instances] lazy val _nonEmptyConvertibleInstance = new FilePathConvertible[FilePath.NonEmpty]
   private[instances] lazy val _relativeConvertibleInstance = new FilePathConvertible[FilePath.Relative]

@@ -8,6 +8,7 @@ import eyrie.file.{FilePath, RootDirectory}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
+import shapeless.test.illTyped
 
 object PotentialDescendantSpec {
   val nonEmpty: FilePath.NonEmpty[Sys] =
@@ -36,8 +37,15 @@ class PotentialDescendantSpec extends FreeSpec {
     }
   }
   "FilePath.Empty" - {
-    "rootOption should be Option of RootDirectory" in {
-      empty.rootOption: Option[RootDirectory[Sys]]
+    "rootOption should not be available" in {
+      illTyped(
+        """
+          empty.rootOption
+        """
+      )
+    }
+    "asRoot should be Option of RootDirectory" in {
+      empty.asRoot: Option[RootDirectory[Sys]]
     }
   }
 }

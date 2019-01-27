@@ -1,6 +1,6 @@
 package eyrie.ops
 
-import eyrie.instances.{PotentialDescendantByInputInstances, PotentialDescendantInstances}
+import eyrie.instances.{PotentialDescendantByInputInstances, PotentialDescendantInstances, PotentialDescendantTrivialByInputInstances}
 import simulacrum.typeclass
 
 trait PotentialDescendant[A, B] {
@@ -21,6 +21,19 @@ object PotentialDescendant extends PotentialDescendantInstances {
 
   object ByInput extends PotentialDescendantByInputInstances {
     type Aux[A, B] = ByInput[A] {
+      type Root = B
+    }
+  }
+
+  @typeclass
+  trait TrivialByInput[A] {
+    type Root
+
+    def asRoot: A => Option[Root]
+  }
+
+  object TrivialByInput extends PotentialDescendantTrivialByInputInstances {
+    type Aux[A, B] = TrivialByInput[A] {
       type Root = B
     }
   }

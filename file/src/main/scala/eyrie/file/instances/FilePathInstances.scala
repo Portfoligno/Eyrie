@@ -5,7 +5,7 @@ import eyrie.ops.Subdivision
 import eyrie.{Emptiness, Relativity}
 
 private[file]
-trait FilePathInstances extends LowPriorityFilePathInstances with EqualityInstances[FilePath] {
+trait FilePathInstances extends FilePathLowPriorityInstances with EqualityInstances[FilePath] {
   private
   lazy val _relativitySubdivisionInstance =
     new FilePathSubdivision[Relativity, FilePath, FilePath.Absolute, FilePath.Relative]
@@ -16,7 +16,7 @@ trait FilePathInstances extends LowPriorityFilePathInstances with EqualityInstan
 }
 
 private[file]
-trait LowPriorityFilePathInstances {
+trait FilePathLowPriorityInstances {
   private
   lazy val _emptinessSubdivisionInstance =
     new FilePathSubdivision[Emptiness, FilePath, FilePath.NonEmpty, FilePath.Empty]
