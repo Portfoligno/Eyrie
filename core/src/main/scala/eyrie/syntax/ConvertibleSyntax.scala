@@ -19,4 +19,7 @@ final class ConvertibleOps[A](private val a: A) extends AnyVal {
 
   def narrowBy[Qual](implicit F: Convertible.ByQuality[Qual, A]): Option[F.Out] =
     F.narrow(a)
+
+  def as[B](implicit F: Convertible[B, A]): Option[B] =
+    F.narrow(a)
 }

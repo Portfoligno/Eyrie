@@ -15,6 +15,9 @@ object PotentialDescendantSpec {
 
   val filePath: FilePath[Sys] =
     Internal.RootDirectory(Paths.get("a/b/c").getRoot)
+
+  val empty: FilePath.Empty[Sys] =
+    Internal.RootDirectory(Paths.get("a/b/c").getRoot)
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -30,6 +33,11 @@ class PotentialDescendantSpec extends FreeSpec {
   "FilePath" - {
     "rootOption should be Option of RootDirectory" in {
       filePath.rootOption: Option[RootDirectory[Sys]]
+    }
+  }
+  "FilePath.Empty" - {
+    "rootOption should be Option of RootDirectory" in {
+      empty.rootOption: Option[RootDirectory[Sys]]
     }
   }
 }

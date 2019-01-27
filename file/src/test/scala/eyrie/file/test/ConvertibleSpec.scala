@@ -5,7 +5,7 @@ import java.nio.file.Paths
 import eyrie.{Emptiness, False, Relativity, True}
 import eyrie.file.FilePath.Internal
 import eyrie.file.context.Sys
-import eyrie.file.{FilePath, IdentityFilePath, RelativeFile}
+import eyrie.file.{FilePath, IdentityFilePath, RelativeFile, RootDirectory}
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
@@ -16,6 +16,9 @@ object ConvertibleSpec {
 
   val relativeFile: RelativeFile[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
+
+  val empty: FilePath.Empty[Sys] =
+    Internal.RootDirectory(Paths.get("a/b/c").toAbsolutePath.getRoot)
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -52,6 +55,17 @@ class ConvertibleSpec extends FreeSpec {
     }
     "widenBy[Relativity] should be FilePath.NonEmpty" in {
       relativeFile.widenBy[Relativity]: FilePath.NonEmpty[Sys]
+    }
+  }
+  "FilePath.Empty" - {
+    "typed narrow should work" in {
+      empty.narrow[RootDirectory[Sys]]
+    }
+    "typed narrowBy should work" in {
+      empty.narrowBy[Relativity[False]]
+    }
+    "typed as should work" in {
+      empty.as[RootDirectory[Sys]]
     }
   }
 }
