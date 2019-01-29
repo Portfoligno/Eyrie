@@ -95,18 +95,8 @@ trait PotentialDescendantByInputInstances {
         A.rootOption
     }
 
-  implicit def eyrieLeftTrivialPotentialDescendantByInputInstance[A, B](
-    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, B, _]
-  ): PotentialDescendant.ByInput.Aux[A, B] =
-    eyriePotentialDescendantByInputInstance[A, B]
-
   implicit def eyrieLeftAmbiguousTrivialPotentialDescendantByInputInstance[A, B](
     implicit A: PotentialDescendant[A, B], ev: Subdivision[A, B, _]
-  ): PotentialDescendant.ByInput.Aux[A, B] =
-    eyriePotentialDescendantByInputInstance[A, B]
-
-  implicit def eyrieRightTrivialPotentialDescendantByInputInstance[A, B](
-    implicit A: PotentialDescendant[A, B], ev: Subdivision[A, _, B]
   ): PotentialDescendant.ByInput.Aux[A, B] =
     eyriePotentialDescendantByInputInstance[A, B]
 
