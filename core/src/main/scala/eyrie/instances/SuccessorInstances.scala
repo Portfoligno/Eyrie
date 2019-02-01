@@ -44,17 +44,36 @@ trait SuccessorByInputInstances {
 
 private[eyrie]
 trait PotentialSuccessorInstances {
-  implicit def eyrieSuccessorBasedInstance[A, B, C](
-    implicit B: Successor[A, B, C], F: Convertible[A, B]
-  ): PotentialSuccessor[B, C] =
-    new PotentialSuccessor[B, C] {
+  implicit def eyrieLeftSuccessorBasedInstance[A, L, R, B, C](
+    implicit
+    A: Subdivision[A, L, R],
+    L: Successor[L, B, C],
+    R: NonSuccessor[R]
+  ): PotentialSuccessor[A, B, C] =
+    new PotentialSuccessor[A, B, C] {
       override
-      def parentOption: B => Option[B] =
-        F.narrow(_).map(B.parent)
+      def parentOption: A => Option[B] =
+        A.subdivide(_).left.toOption.map(L.parent)
 
       override
-      def lastSegmentOption: B => Option[C] =
-        F.narrow(_).map(B.lastSegment)
+      def lastSegmentOption: A => Option[C] =
+        A.subdivide(_).left.toOption.map(L.lastSegment)
+    }
+
+  implicit def eyrieRightSuccessorBasedInstance[A, L, R, B, C](
+    implicit
+    A: Subdivision[A, L, R],
+    L: NonSuccessor[L],
+    R: Successor[R, B, C]
+  ): PotentialSuccessor[A, B, C] =
+    new PotentialSuccessor[A, B, C] {
+      override
+      def parentOption: A => Option[B] =
+        A.subdivide(_).toOption.map(R.parent)
+
+      override
+      def lastSegmentOption: A => Option[C] =
+        A.subdivide(_).toOption.map(R.lastSegment)
     }
 
   implicit def eyrieDiPotentialSuccessorBasedInstance[A, C, L, R](
@@ -62,8 +81,8 @@ trait PotentialSuccessorInstances {
     A: DiPotentialSuccessor[A, L, R, C],
     L: Convertible[L, A],
     R: Convertible[R, A]
-  ): PotentialSuccessor[A, C] =
-    new PotentialSuccessor[A, C] {
+  ): PotentialSuccessor[A, A, C] =
+    new PotentialSuccessor[A, A, C] {
       override
       def parentOption: A => Option[A] =
         A.parentEitherOption >>> (_.map(_.fold(L.widen, R.widen)))
@@ -76,15 +95,17 @@ trait PotentialSuccessorInstances {
 
 private[eyrie]
 trait PotentialSuccessorByInputInstances {
-  implicit def eyriePotentialSuccessorByInputInstance[A, C](
-    implicit A: PotentialSuccessor[A, C]
-  ): PotentialSuccessor.ByInput.Aux[A, C] =
+  implicit def eyriePotentialSuccessorByInputInstance[A, B, C](
+    implicit A: PotentialSuccessor[A, B, C]
+  ): PotentialSuccessor.ByInput.Aux[A, B, C] =
     new PotentialSuccessor.ByInput[A] {
+      override
+      type Out = B
       override
       type Segment = C
 
       override
-      def parentOption: A => Option[A] =
+      def parentOption: A => Option[B] =
         A.parentOption
 
       override

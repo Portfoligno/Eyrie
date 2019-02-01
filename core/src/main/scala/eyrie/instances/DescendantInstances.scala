@@ -56,28 +56,28 @@ trait DescendantByInputInstances {
 
 private[eyrie]
 trait PotentialDescendantInstances {
-  implicit def eyrieLeftDescendantBasedInstance[A, LA, RA, B](
+  implicit def eyrieLeftDescendantBasedInstance[A, L, R, B](
     implicit
-    A: Subdivision[A, LA, RA],
-    LA: Descendant[LA, B],
-    RA: NonDescendant[RA]
+    A: Subdivision[A, L, R],
+    L: Descendant[L, B],
+    R: NonDescendant[R]
   ): PotentialDescendant[A, B] =
     new PotentialDescendant[A, B] {
       override
       def rootOption: A => Option[B] =
-        A.subdivide(_).fold(LA.root >>> (Some(_)), const(None))
+        A.subdivide(_).fold(L.root >>> (Some(_)), const(None))
     }
 
-  implicit def eyrieRightDescendantBasedInstance[A, LA, RA, B](
+  implicit def eyrieRightDescendantBasedInstance[A, L, R, B](
     implicit
-    A: Subdivision[A, LA, RA],
-    LA: NonDescendant[LA],
-    RA: Descendant[RA, B]
+    A: Subdivision[A, L, R],
+    L: NonDescendant[L],
+    R: Descendant[R, B]
   ): PotentialDescendant[A, B] =
     new PotentialDescendant[A, B] {
       override
       def rootOption: A => Option[B] =
-        A.subdivide(_).fold(const(None), RA.root >>> (Some(_)))
+        A.subdivide(_).fold(const(None), R.root >>> (Some(_)))
     }
 }
 

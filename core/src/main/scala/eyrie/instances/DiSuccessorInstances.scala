@@ -49,15 +49,15 @@ trait DiSuccessorByInputInstances {
 
 private[eyrie]
 trait DiPotentialSuccessorInstances {
-  implicit def eyriePotentialSuccessorBasedInstance[A, L, R, C](
+  implicit def eyriePotentialSuccessorBasedInstance[A, LA, RA, LB, RB, C](
     implicit
-    A: Subdivision[A, L, R],
-    L: PotentialSuccessor[L, C],
-    R: PotentialSuccessor[R, C]
-  ): DiPotentialSuccessor[A, L, R, C] =
-    new DiPotentialSuccessor[A, L, R, C] {
+    A: Subdivision[A, LA, RA],
+    L: PotentialSuccessor[LA, LB, C],
+    R: PotentialSuccessor[RA, RB, C]
+  ): DiPotentialSuccessor[A, LB, RB, C] =
+    new DiPotentialSuccessor[A, LB, RB, C] {
       override
-      def parentEitherOption: A => Option[Either[L, R]] =
+      def parentEitherOption: A => Option[Either[LB, RB]] =
         A.subdivide(_).fold(L.parentOption >>> (_.map(_.asLeft)), R.parentOption >>> (_.map(_.asRight)))
 
       override
