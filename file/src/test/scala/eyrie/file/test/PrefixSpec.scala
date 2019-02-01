@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
-object PrefixHierarchySpec {
+object PrefixSpec {
   val relativeFile: RelativeFile[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 
@@ -18,9 +18,9 @@ object PrefixHierarchySpec {
 }
 
 @RunWith(classOf[JUnitRunner])
-class PrefixHierarchySpec extends FreeSpec {
-  import PrefixHierarchySpec._
-  import eyrie.syntax.prefixHierarchy._
+class PrefixSpec extends FreeSpec {
+  import PrefixSpec._
+  import eyrie.syntax.prefix._
 
   "RelativeFile" - {
     "startsWith(RelativeFile) should work" in {

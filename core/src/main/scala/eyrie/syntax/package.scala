@@ -4,7 +4,7 @@ package object syntax {
   object all extends AllSyntax
   object convertible extends ConvertibleSyntax
   object descendant extends DescendantSyntax
-  object prefixHierarchy extends PrefixHierarchySyntax
+  object prefix extends PrefixSyntax
   object potentialDescendant extends PotentialDescendantSyntax
   object potentialSuccessor extends PotentialSuccessorSyntax
   object segment extends SegmentSyntax
