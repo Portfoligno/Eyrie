@@ -5,8 +5,19 @@ import cats.syntax.compose._
 import eyrie.ops._
 
 private[eyrie]
+trait GeneralizedSuccessorInstances {
+  implicit def eyrieNonSuccessorBasedInstance[A, L, R](
+    implicit
+    A: Subdivision[A, L, R],
+    L: NonSuccessor[L],
+    R: NonSuccessor[R]
+  ): NonSuccessor[A] =
+    new NonSuccessor[A] { }
+}
+
+private[eyrie]
 trait SuccessorInstances {
-  implicit def eyrieDiSuccessorBasedInstance[A, B, C, L, R](
+  implicit def eyrieDiSuccessorBasedInstance[A, L, R, B, C](
     implicit
     A: DiSuccessor[A, L, R, C],
     L: Convertible[L, B],
@@ -76,7 +87,7 @@ trait PotentialSuccessorInstances {
         A.subdivide(_).toOption.map(R.lastSegment)
     }
 
-  implicit def eyrieDiPotentialSuccessorBasedInstance[A, C, L, R](
+  implicit def eyrieDiPotentialSuccessorBasedInstance[A, L, R, C](
     implicit
     A: DiPotentialSuccessor[A, L, R, C],
     L: Convertible[L, A],

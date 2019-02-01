@@ -52,17 +52,17 @@ trait DiPotentialSuccessorInstances {
   implicit def eyriePotentialSuccessorBasedInstance[A, LA, RA, LB, RB, C](
     implicit
     A: Subdivision[A, LA, RA],
-    L: PotentialSuccessor[LA, LB, C],
-    R: PotentialSuccessor[RA, RB, C]
+    LA: PotentialSuccessor[LA, LB, C],
+    RB: PotentialSuccessor[RA, RB, C]
   ): DiPotentialSuccessor[A, LB, RB, C] =
     new DiPotentialSuccessor[A, LB, RB, C] {
       override
       def parentEitherOption: A => Option[Either[LB, RB]] =
-        A.subdivide(_).fold(L.parentOption >>> (_.map(_.asLeft)), R.parentOption >>> (_.map(_.asRight)))
+        A.subdivide(_).fold(LA.parentOption >>> (_.map(_.asLeft)), RB.parentOption >>> (_.map(_.asRight)))
 
       override
       def lastSegmentOption: A => Option[C] =
-        A.subdivide(_).fold(L.lastSegmentOption, R.lastSegmentOption)
+        A.subdivide(_).fold(LA.lastSegmentOption, RB.lastSegmentOption)
     }
 }
 

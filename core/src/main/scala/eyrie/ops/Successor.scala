@@ -3,7 +3,7 @@ package eyrie.ops
 import eyrie.instances.{SuccessorByInputInstances, SuccessorInstances}
 import simulacrum.typeclass
 
-trait Successor[A, B, C] {
+trait Successor[A, B, C] extends GeneralizedSuccessor[A, B, C] {
   def parent: A => B
   def lastSegment: A => C
 }

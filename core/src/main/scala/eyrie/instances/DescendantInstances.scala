@@ -7,26 +7,29 @@ import eyrie.ops._
 import scala.Function.const
 
 private[eyrie]
-trait DescendantInstances {
-  implicit def eyrieDescendantBasedInstance[A, LA, RA, B](
+trait GeneralizedDescendantInstances {
+  implicit def eyrieNonDescendantBasedInstance[A, L, R](
     implicit
-    A: Subdivision[A, LA, RA],
-    LA: Descendant[LA, B],
-    RA: Descendant[RA, B]
+    A: Subdivision[A, L, R],
+    L: NonDescendant[L],
+    R: NonDescendant[R]
+  ): NonDescendant[A] =
+    new NonDescendant[A] { }
+}
+
+private[eyrie]
+trait DescendantInstances {
+  implicit def eyrieDescendantBasedInstance[A, L, R, B](
+    implicit
+    A: Subdivision[A, L, R],
+    L: Descendant[L, B],
+    R: Descendant[R, B]
   ): Descendant[A, B] =
     new Descendant[A, B] {
       override
       def root: A => B =
-        A.subdivide(_).fold(LA.root, RA.root)
+        A.subdivide(_).fold(L.root, R.root)
     }
-
-  implicit def eyrieNonDescendantBasedInstance[A, LA, RA](
-    implicit
-    A: Subdivision[A, LA, RA],
-    LA: NonDescendant[LA],
-    RA: NonDescendant[RA]
-  ): NonDescendant[A] =
-    eyrieDescendantBasedInstance[A, LA, RA, Nothing]
 }
 
 private[eyrie]

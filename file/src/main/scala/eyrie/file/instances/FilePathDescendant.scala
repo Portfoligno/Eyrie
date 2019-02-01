@@ -32,10 +32,6 @@ object RelativeFilePathDescendant extends NonDescendant[RelativeFile[Any]]
   with Successor[RelativeFile[Any], FilePath.Relative[Any], FileName[Any]] {
   import eyrie.file.syntax.asJava._
 
-  override
-  def root: RelativeFile[Any] => Nothing =
-    _ => throw new UnsupportedOperationException("Unexpected invocation")
-
   private
   def relative[S](path: Path): FilePath.Relative[S] =
     if (path.getNameCount < 2 && Option(path.getFileName).forall(_.toString.isEmpty)) {
@@ -81,19 +77,7 @@ object AbsoluteFilePathDescendant extends Descendant[AbsoluteFile[Any], RootDire
 
 private
 object FilePathNonDescendant extends NonDescendant[IdentityFilePath[Any]]
-  with NonSuccessor[IdentityFilePath[Any]] {
-  override
-  def root: IdentityFilePath[Any] => Nothing =
-    _ => throw new UnsupportedOperationException("Unexpected invocation")
-
-  override
-  def parent: IdentityFilePath[Any] => Nothing =
-    _ => throw new UnsupportedOperationException("Unexpected invocation")
-
-  override
-  def lastSegment: IdentityFilePath[Any] => Nothing =
-    _ => throw new UnsupportedOperationException("Unexpected invocation")
-}
+  with NonSuccessor[IdentityFilePath[Any]]
 
 private
 object FilePathTrivialDescendant extends TrivialDescendant[RootDirectory[Any]]
@@ -101,12 +85,4 @@ object FilePathTrivialDescendant extends TrivialDescendant[RootDirectory[Any]]
   override
   def root: RootDirectory[Any] => RootDirectory[Any] =
     identity
-
-  override
-  def parent: RootDirectory[Any] => Nothing =
-    _ => throw new UnsupportedOperationException("Unexpected invocation")
-
-  override
-  def lastSegment: RootDirectory[Any] => Nothing =
-    _ => throw new UnsupportedOperationException("Unexpected invocation")
 }

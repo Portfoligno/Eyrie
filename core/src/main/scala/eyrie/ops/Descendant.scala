@@ -3,7 +3,7 @@ package eyrie.ops
 import eyrie.instances.{DescendantByInputInstances, DescendantInstances}
 import simulacrum.typeclass
 
-trait Descendant[A, B] {
+trait Descendant[A, B] extends GeneralizedDescendant[A, B] {
   def root: A => B
 }
 
