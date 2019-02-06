@@ -14,6 +14,6 @@ object FilePathPrefix extends Prefix[FilePath[Any]] {
   import eyrie.file.syntax.asJava._
 
   override
-  def startsWith(x: FilePath[Any], y: FilePath[Any]): Boolean =
-    x.asJava.startsWith(y.asJava)
+  def startsWith: (FilePath[Any], FilePath[Any]) => Boolean =
+    (x, y) => x.asJava.startsWith(y.asJava)
 }

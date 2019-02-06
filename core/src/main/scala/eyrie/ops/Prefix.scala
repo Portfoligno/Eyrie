@@ -5,7 +5,7 @@ import simulacrum.typeclass
 
 @typeclass
 trait Prefix[A] {
-  def startsWith(x: A, y: A): Boolean
+  def startsWith: (A, A) => Boolean
 }
 
 object Prefix extends PrefixInstances
