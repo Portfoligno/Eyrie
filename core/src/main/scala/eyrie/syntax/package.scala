@@ -10,6 +10,7 @@ package object syntax {
   object segment extends SegmentSyntax
   object subdivision extends SubdivisionSyntax
   object successor extends SuccessorSyntax
+  object suffix extends SuffixSyntax
 
   object diPotentialSuccessor extends DiPotentialSuccessorSyntax
   object diSuccessor extends DiSuccessorSyntax

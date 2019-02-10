@@ -8,3 +8,4 @@ class AllSyntax extends ConvertibleSyntax
   with SegmentSyntax
   with SubdivisionSyntax
   with SuccessorSyntax
+  with SuffixSyntax

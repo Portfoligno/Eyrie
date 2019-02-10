@@ -5,7 +5,7 @@ import eyrie.ops.Prefix
 
 private[instances]
 trait PrefixInstances[A[_]] extends EqualityInstances[A] {
-  implicit def eyrieFilePrefixHierarchyInstance[C]: Prefix[A[C]] =
+  implicit def eyrieFilePrefixInstance[C]: Prefix[A[C]] =
     FilePathPrefix.asInstanceOf[Prefix[A[C]]]
 }
 

@@ -5,7 +5,7 @@ import eyrie.{Emptiness, False, Relativity}
 
 private[eyrie]
 trait PrefixInstances {
-  implicit def eyrieNonDescendantInstance[A, B](
+  implicit def eyrieNonDescendantBasedInstance[A, B](
     implicit
     A: Convertible.ByQuality.Aux[Emptiness[False], B, A],
     B: Prefix[B],
@@ -20,7 +20,7 @@ trait PrefixInstances {
         )
     }
 
-  implicit def eyrieDescendantInstance[A, L, R](
+  implicit def eyrieDescendantBasedInstance[A, L, R](
     implicit
     A: Subdivision.ByAttribute.Aux[Emptiness, A, L, R],
     prefixL: Prefix[L],
@@ -40,7 +40,7 @@ trait PrefixInstances {
         }
     }
 
-  implicit def eyrieSubdivisionInstance[A, L, R](
+  implicit def eyrieSubdivisionBasedInstance[A, L, R](
     implicit
     A: Subdivision.ByAttribute.Aux[Relativity, A, L, R],
     L: Prefix[L],
