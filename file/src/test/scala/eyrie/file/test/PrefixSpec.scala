@@ -2,10 +2,9 @@ package eyrie.file.test
 
 import java.nio.file.Paths
 
-import eyrie.file.FilePath.Internal
+import eyrie.file.FilePath.{Absolute, Internal}
 import eyrie.file.context.Sys
 import eyrie.file.{AbsoluteFile, FilePath, RelativeFile}
-import eyrie.ops.Prefix
 import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
@@ -19,6 +18,9 @@ object PrefixSpec {
 
   val relative: FilePath.Relative[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
+
+  val absolute: Absolute[Sys] =
+    Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -39,6 +41,11 @@ class PrefixSpec extends FreeSpec {
   "Relative" - {
     "startsWith(Relative) should work" in {
       relative.startsWith(relative)
+    }
+  }
+  "Absolute" - {
+    "startsWith(Absolute) should work" in {
+      absolute.startsWith(absolute)
     }
   }
 }
