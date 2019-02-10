@@ -1,7 +1,7 @@
 package eyrie.instances
 
 import eyrie.ops._
-import eyrie.{Emptiness, False}
+import eyrie.{Emptiness, False, Relativity}
 
 private[eyrie]
 trait PrefixInstances {
@@ -36,6 +36,25 @@ trait PrefixInstances {
           case (Left(xx), Left(yy)) => prefixL.startsWith(xx, yy)
           case (Left(xx), Right(yy)) => descendantL.root(xx) === yy
           case (Right(xx), Right(yy)) => xx === yy
+          case _ => false
+        }
+    }
+
+  implicit def eyrieSubdivisionInstance[A, L, R](
+    implicit
+    A: Subdivision.ByAttribute.Aux[Relativity, A, L, R],
+    L: Prefix[L],
+    R: Prefix[R]
+  ): Prefix[A] =
+    new Prefix[A] {
+      override
+      def startsWith: (A, A) => Boolean =
+        (x, y) => (A.subdivide(x), A.subdivide(y)) match {
+          // Both absolute
+          case (Left(xx), Left(yy)) => L.startsWith(xx, yy)
+          // Both relative
+          case (Right(xx), Right(yy)) => R.startsWith(xx, yy)
+          // Not matching relativity
           case _ => false
         }
     }
