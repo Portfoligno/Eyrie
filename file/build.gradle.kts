@@ -9,9 +9,7 @@ dependencies {
   scalaCompilerPlugin("org.scalamacros:paradise_2.12.8:2.1.1")
   api("org.scala-lang:scala-library:2.12.8")
 
-  api(project(":core"))
-  compileClasspath(fileTree("../core/build/libs/core.jar")) // Dirty hack
-  testCompileClasspath(fileTree("../core/build/libs/core.jar")) // Dirty hack
+  api(project(":core", "default"))
 
   testImplementation("junit:junit:4.12")
   testImplementation("org.scalatest:scalatest_2.12:3.0.5")
@@ -24,6 +22,4 @@ tasks.withType<ScalaCompile> {
       "-Ypartial-unification",
       "-language:higherKinds",
       "-language:implicitConversions")
-
-  dependsOn(project(":core").tasks["build"]) // Dirty hack
 }
