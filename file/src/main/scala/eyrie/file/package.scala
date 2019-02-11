@@ -1,5 +1,5 @@
 package eyrie
 
-import eyrie.file.instances.{ConvertibleInstances, FilePathSuccessorInstances}
+import eyrie.file.instances.ConvertibleInstances
 
-package object file extends ConvertibleInstances with FilePathSuccessorInstances
+package object file extends ConvertibleInstances
