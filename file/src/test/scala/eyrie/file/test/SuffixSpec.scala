@@ -51,4 +51,25 @@ class SuffixSpec extends FreeSpec {
       filePath.endsWith(relativeFile)
     }
   }
+
+  "RelativeFile" - {
+    "endsWith(Relative) should work" in {
+      relativeFile.endsWith(relative)
+    }
+  }
+  "AbsoluteFile" - {
+    "endsWith(Relative) should work" in {
+      absoluteFile.endsWith(relative)
+    }
+  }
+  "NonEmpty" - {
+    "endsWith(Relative) should work" in {
+      nonEmpty.endsWith(relative)
+    }
+  }
+  "FilePath" - {
+    "endsWith(Relative) should work" in {
+      filePath.endsWith(relative)
+    }
+  }
 }
