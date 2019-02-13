@@ -48,14 +48,14 @@ trait DiSuccessorByInputInstances {
 }
 
 private[eyrie]
-trait DiPotentialSuccessorInstances {
-  implicit def eyriePotentialSuccessorBasedInstance[A, LA, RA, LB, RB, C](
+trait DiPartialSuccessorInstances {
+  implicit def eyriePartialSuccessorBasedInstance[A, LA, RA, LB, RB, C](
     implicit
     A: Subdivision[A, LA, RA],
-    LA: PotentialSuccessor[LA, LB, C],
-    RB: PotentialSuccessor[RA, RB, C]
-  ): DiPotentialSuccessor[A, LB, RB, C] =
-    new DiPotentialSuccessor[A, LB, RB, C] {
+    LA: PartialSuccessor[LA, LB, C],
+    RB: PartialSuccessor[RA, RB, C]
+  ): DiPartialSuccessor[A, LB, RB, C] =
+    new DiPartialSuccessor[A, LB, RB, C] {
       override
       def parentEitherOption: A => Option[Either[LB, RB]] =
         A.subdivide(_).fold(LA.parentOption >>> (_.map(_.asLeft)), RB.parentOption >>> (_.map(_.asRight)))
@@ -67,11 +67,11 @@ trait DiPotentialSuccessorInstances {
 }
 
 private[eyrie]
-trait DiPotentialSuccessorByInputInstances {
-  implicit def eyrieDiPotentialSuccessorByInputInstance[A, L, R, C](
-    implicit A: DiPotentialSuccessor[A, L, R, C]
-  ): DiPotentialSuccessor.ByInput.Aux[A, L, R, C] =
-    new DiPotentialSuccessor.ByInput[A] {
+trait DiPartialSuccessorByInputInstances {
+  implicit def eyrieDiPartialSuccessorByInputInstance[A, L, R, C](
+    implicit A: DiPartialSuccessor[A, L, R, C]
+  ): DiPartialSuccessor.ByInput.Aux[A, L, R, C] =
+    new DiPartialSuccessor.ByInput[A] {
       override
       type Left = L
       override

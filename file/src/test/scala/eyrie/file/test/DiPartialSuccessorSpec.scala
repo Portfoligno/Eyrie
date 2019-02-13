@@ -9,15 +9,15 @@ import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
-object DiPotentialSuccessorSpec {
+object DiPartialSuccessorSpec {
   val filePath: FilePath[Sys] =
     Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 }
 
 @RunWith(classOf[JUnitRunner])
-class DiPotentialSuccessorSpec extends FreeSpec {
-  import DiPotentialSuccessorSpec._
-  import eyrie.syntax.diPotentialSuccessor._
+class DiPartialSuccessorSpec extends FreeSpec {
+  import DiPartialSuccessorSpec._
+  import eyrie.syntax.diPartialSuccessor._
 
   "FilePath" - {
     "parentEitherOption should be Option of either FilePath.Absolute or FilePath.Relative" in {

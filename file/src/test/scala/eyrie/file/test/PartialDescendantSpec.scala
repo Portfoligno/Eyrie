@@ -10,7 +10,7 @@ import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 import shapeless.test.illTyped
 
-object PotentialDescendantSpec {
+object PartialDescendantSpec {
   val nonEmpty: FilePath.NonEmpty[Sys] =
     Internal.AbsoluteFile(Paths.get("a/b/c").toAbsolutePath)
 
@@ -22,9 +22,9 @@ object PotentialDescendantSpec {
 }
 
 @RunWith(classOf[JUnitRunner])
-class PotentialDescendantSpec extends FreeSpec {
-  import PotentialDescendantSpec._
-  import eyrie.syntax.potentialDescendant._
+class PartialDescendantSpec extends FreeSpec {
+  import PartialDescendantSpec._
+  import eyrie.syntax.partialDescendant._
 
   "FilePath.Absolute" - {
     "rootOption should be Option of RootDirectory" in {

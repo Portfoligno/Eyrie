@@ -54,14 +54,14 @@ trait SuccessorByInputInstances {
 }
 
 private[eyrie]
-trait PotentialSuccessorInstances {
+trait PartialSuccessorInstances {
   implicit def eyrieLeftSuccessorBasedInstance[A, L, R, B, C](
     implicit
     A: Subdivision[A, L, R],
     L: Successor[L, B, C],
     R: NonSuccessor[R]
-  ): PotentialSuccessor[A, B, C] =
-    new PotentialSuccessor[A, B, C] {
+  ): PartialSuccessor[A, B, C] =
+    new PartialSuccessor[A, B, C] {
       override
       def parentOption: A => Option[B] =
         A.subdivide(_).left.toOption.map(L.parent)
@@ -76,8 +76,8 @@ trait PotentialSuccessorInstances {
     A: Subdivision[A, L, R],
     L: NonSuccessor[L],
     R: Successor[R, B, C]
-  ): PotentialSuccessor[A, B, C] =
-    new PotentialSuccessor[A, B, C] {
+  ): PartialSuccessor[A, B, C] =
+    new PartialSuccessor[A, B, C] {
       override
       def parentOption: A => Option[B] =
         A.subdivide(_).toOption.map(R.parent)
@@ -87,13 +87,13 @@ trait PotentialSuccessorInstances {
         A.subdivide(_).toOption.map(R.lastSegment)
     }
 
-  implicit def eyrieDiPotentialSuccessorBasedInstance[A, L, R, C](
+  implicit def eyrieDiPartialSuccessorBasedInstance[A, L, R, C](
     implicit
-    A: DiPotentialSuccessor[A, L, R, C],
+    A: DiPartialSuccessor[A, L, R, C],
     L: Convertible[L, A],
     R: Convertible[R, A]
-  ): PotentialSuccessor[A, A, C] =
-    new PotentialSuccessor[A, A, C] {
+  ): PartialSuccessor[A, A, C] =
+    new PartialSuccessor[A, A, C] {
       override
       def parentOption: A => Option[A] =
         A.parentEitherOption >>> (_.map(_.fold(L.widen, R.widen)))
@@ -105,11 +105,11 @@ trait PotentialSuccessorInstances {
 }
 
 private[eyrie]
-trait PotentialSuccessorByInputInstances {
-  implicit def eyriePotentialSuccessorByInputInstance[A, B, C](
-    implicit A: PotentialSuccessor[A, B, C]
-  ): PotentialSuccessor.ByInput.Aux[A, B, C] =
-    new PotentialSuccessor.ByInput[A] {
+trait PartialSuccessorByInputInstances {
+  implicit def eyriePartialSuccessorByInputInstance[A, B, C](
+    implicit A: PartialSuccessor[A, B, C]
+  ): PartialSuccessor.ByInput.Aux[A, B, C] =
+    new PartialSuccessor.ByInput[A] {
       override
       type Out = B
       override

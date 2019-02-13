@@ -1,16 +1,16 @@
 package eyrie.ops
 
-import eyrie.instances.{DiPotentialSuccessorByInputInstances, DiPotentialSuccessorInstances}
+import eyrie.instances.{DiPartialSuccessorByInputInstances, DiPartialSuccessorInstances}
 import simulacrum.typeclass
 
-trait DiPotentialSuccessor[A, L, R, C] {
+trait DiPartialSuccessor[A, L, R, C] {
   def parentEitherOption: A => Option[Either[L, R]]
   def lastSegmentOption: A => Option[C]
 }
 
-object DiPotentialSuccessor extends DiPotentialSuccessorInstances {
+object DiPartialSuccessor extends DiPartialSuccessorInstances {
   @inline
-  def apply[A, L, R, C](implicit A: DiPotentialSuccessor[A, L, R, C]): DiPotentialSuccessor[A, L, R, C] = A
+  def apply[A, L, R, C](implicit A: DiPartialSuccessor[A, L, R, C]): DiPartialSuccessor[A, L, R, C] = A
 
 
   @typeclass
@@ -23,7 +23,7 @@ object DiPotentialSuccessor extends DiPotentialSuccessorInstances {
     def lastSegmentOption: A => Option[Segment]
   }
 
-  object ByInput extends DiPotentialSuccessorByInputInstances {
+  object ByInput extends DiPartialSuccessorByInputInstances {
     type Aux[A, L, R, C] = ByInput[A] {
       type Left = L
       type Right = R

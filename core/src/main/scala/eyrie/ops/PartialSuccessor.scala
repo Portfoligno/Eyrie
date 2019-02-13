@@ -1,16 +1,16 @@
 package eyrie.ops
 
-import eyrie.instances.{PotentialSuccessorByInputInstances, PotentialSuccessorInstances}
+import eyrie.instances.{PartialSuccessorByInputInstances, PartialSuccessorInstances}
 import simulacrum.typeclass
 
-trait PotentialSuccessor[A, B, C] {
+trait PartialSuccessor[A, B, C] {
   def parentOption: A => Option[B]
   def lastSegmentOption: A => Option[C]
 }
 
-object PotentialSuccessor extends PotentialSuccessorInstances  {
+object PartialSuccessor extends PartialSuccessorInstances  {
   @inline
-  def apply[A, B, C](implicit A: PotentialSuccessor[A, B, C]): PotentialSuccessor[A, B, C] = A
+  def apply[A, B, C](implicit A: PartialSuccessor[A, B, C]): PartialSuccessor[A, B, C] = A
 
 
   @typeclass
@@ -22,7 +22,7 @@ object PotentialSuccessor extends PotentialSuccessorInstances  {
     def lastSegmentOption: A => Option[Segment]
   }
 
-  object ByInput extends PotentialSuccessorByInputInstances {
+  object ByInput extends PartialSuccessorByInputInstances {
     type Aux[A, B, C] = ByInput[A] {
       type Out = B
       type Segment = C

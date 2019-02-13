@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FreeSpec
 import org.scalatest.junit.JUnitRunner
 
-object PotentialSuccessorSpec {
+object PartialSuccessorSpec {
   val relative: FilePath.Relative[Sys] =
     Internal.RelativeFile(Paths.get("a/b/c"))
 
@@ -21,9 +21,9 @@ object PotentialSuccessorSpec {
 }
 
 @RunWith(classOf[JUnitRunner])
-class PotentialSuccessorSpec extends FreeSpec {
-  import PotentialSuccessorSpec._
-  import eyrie.syntax.potentialSuccessor._
+class PartialSuccessorSpec extends FreeSpec {
+  import PartialSuccessorSpec._
+  import eyrie.syntax.partialSuccessor._
 
   "FilePath.Relative" - {
     "parentOption should be Option of FilePath.Relative" in {
