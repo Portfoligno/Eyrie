@@ -12,8 +12,4 @@ trait RootDirectoryInstances extends EqualityInstances[RootDirectory] {
 
 private
 object FilePathTrivialDescendant extends TrivialDescendant[RootDirectory[Any]]
-  with NonSuccessor[RootDirectory[Any]] {
-  override
-  def root: RootDirectory[Any] => RootDirectory[Any] =
-    identity
-}
+  with NonSuccessor[RootDirectory[Any]]
