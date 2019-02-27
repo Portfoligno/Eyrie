@@ -2,6 +2,7 @@ package eyrie.nio.instances
 
 import java.nio.file.Path
 
+import eyrie.file.ops.Directory
 import eyrie.nio.FilePath.Internal
 import eyrie.nio.{AbsoluteFile, FileName, FilePath, RelativeFile, RootDirectory}
 import eyrie.ops.{Descendant, Successor}
@@ -13,6 +14,9 @@ trait AbsoluteFileInstances extends PrefixInstances[AbsoluteFile]
   Descendant[AbsoluteFile[C], RootDirectory[C]] with Successor[AbsoluteFile[C], FilePath.Absolute[C], FileName[C]] =
     AbsoluteFilePathDescendant.asInstanceOf[
       Descendant[AbsoluteFile[C], RootDirectory[C]] with Successor[AbsoluteFile[C], FilePath.Absolute[C], FileName[C]]]
+
+  implicit def eyrieNioDirectoryInstance[C]: Directory[AbsoluteFile[C], FileName[C]] =
+    FilePathDirectory.asInstanceOf[Directory[AbsoluteFile[C], FileName[C]]]
 }
 
 private

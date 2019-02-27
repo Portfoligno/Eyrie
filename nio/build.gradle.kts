@@ -8,6 +8,7 @@ val scalaCompilerPlugin: Configuration = configurations.create("scalaCompilerPlu
 dependencies {
   scalaCompilerPlugin("org.scalamacros:paradise_2.12.8:2.1.1")
   api("org.scala-lang:scala-library:2.12.8")
+  api(project(":core", "default"))
   api(project(":file", "default"))
 
   testImplementation("junit:junit:4.12")
