@@ -11,6 +11,8 @@ dependencies {
   api(project(":core", "default"))
   api(project(":file", "default"))
 
+  compileOnly("com.github.mpilquist:simulacrum_2.12:0.14.0")
+
   testImplementation("junit:junit:4.12")
   testImplementation("org.scalatest:scalatest_2.12:3.0.5")
   testCompileOnly("com.chuusai:shapeless_2.12:2.3.3")
