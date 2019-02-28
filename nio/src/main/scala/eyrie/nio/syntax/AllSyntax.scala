@@ -1,3 +1,3 @@
 package eyrie.nio.syntax
 
-trait AllSyntax extends AsJavaSyntax
+trait AllSyntax extends JavaMirrorSyntax

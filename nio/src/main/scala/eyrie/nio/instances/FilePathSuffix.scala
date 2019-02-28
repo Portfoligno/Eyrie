@@ -11,7 +11,7 @@ trait SuffixInstances[A[_], B[_]] {
 
 private
 object FilePathSuffix extends Suffix[FilePath[Any], FilePath[Any]] {
-  import eyrie.nio.syntax.asJava._
+  import eyrie.nio.syntax.javaMirror._
 
   override
   def endsWith: (FilePath[Any], FilePath[Any]) => Boolean =

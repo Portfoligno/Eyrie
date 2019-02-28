@@ -18,7 +18,7 @@ trait RelativeFileInstances extends PrefixInstances[RelativeFile]
 private
 object RelativeFilePathDescendant extends NonDescendant[RelativeFile[Any]]
   with Successor[RelativeFile[Any], FilePath.Relative[Any], FileName[Any]] {
-  import eyrie.nio.syntax.asJava._
+  import eyrie.nio.syntax.javaMirror._
 
   private
   def relative[S](path: Path): FilePath.Relative[S] =

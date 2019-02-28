@@ -2,7 +2,7 @@ package eyrie.nio.context
 
 import java.nio.file.{FileSystem, FileSystems}
 
-import eyrie.nio.ops.AsJava
+import eyrie.nio.ops.JavaMirror
 
 sealed trait Sys
 
@@ -10,13 +10,13 @@ object Sys {
   implicit val eyrieNioSysInstance: Sys =
     new Sys { }
 
-  implicit val eyrieNioAsJavaInstance: AsJava.Aux[Sys, FileSystem] =
-    new AsJava[Sys] with AsJava.Ops[FileSystem] {
+  implicit val eyrieNioAsJavaInstance: JavaMirror.Aux[Sys, FileSystem] =
+    new JavaMirror[Sys] with JavaMirror.Ops[FileSystem] {
       override
       type Out = FileSystem
 
       override
-      def asJavaOps(a: Sys): AsJava.Ops[FileSystem] =
+      def asJavaOps(a: Sys): JavaMirror.Ops[FileSystem] =
         this
 
       override

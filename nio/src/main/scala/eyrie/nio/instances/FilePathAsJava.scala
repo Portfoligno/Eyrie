@@ -2,17 +2,17 @@ package eyrie.nio.instances
 
 import java.nio.file.Path
 
-import eyrie.nio.ops.AsJava
+import eyrie.nio.ops.JavaMirror
 
 private
-object FilePathAsJava extends AsJava[Any] {
+object FilePathAsJava extends JavaMirror[Any] {
   override
-  def asJavaOps(a: Any): AsJava.Ops[Out] =
-    a.asInstanceOf[AsJava.Ops[Out]]
+  def asJavaOps(a: Any): JavaMirror.Ops[Out] =
+    a.asInstanceOf[JavaMirror.Ops[Out]]
 }
 
 private[instances]
 trait AsJavaInstances[A[_]] {
-  implicit def eyrieNioAsJavaInstance[C]: AsJava.Aux[A[C], Path] =
-    FilePathAsJava.asInstanceOf[AsJava.Aux[A[C], Path]]
+  implicit def eyrieNioAsJavaInstance[C]: JavaMirror.Aux[A[C], Path] =
+    FilePathAsJava.asInstanceOf[JavaMirror.Aux[A[C], Path]]
 }

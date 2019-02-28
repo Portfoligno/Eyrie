@@ -12,7 +12,7 @@ import scala.collection.JavaConverters._
 
 private[instances]
 object FilePathDirectory extends Directory[AbsoluteFile[Any], FileName[Any]] {
-  import eyrie.nio.syntax.asJava._
+  import eyrie.nio.syntax.javaMirror._
 
   override
   def listFiles[F[_]](a: AbsoluteFile[Any])(implicit F: Sync[F]): Stream[F, FileName[Any]] =

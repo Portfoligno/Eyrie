@@ -12,7 +12,7 @@ trait FileNameInstances extends EqualityInstances[FileName] {
 
 private
 object FilePathSegment extends Segment[FileName[Any]] {
-  import eyrie.nio.syntax.asJava._
+  import eyrie.nio.syntax.javaMirror._
 
   override
   type Singleton = RelativeFile[Any]

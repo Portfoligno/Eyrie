@@ -22,7 +22,7 @@ trait AbsoluteFileInstances extends PrefixInstances[AbsoluteFile]
 private
 object AbsoluteFilePathDescendant extends Descendant[AbsoluteFile[Any], RootDirectory[Any]]
   with Successor[AbsoluteFile[Any], FilePath.Absolute[Any], FileName[Any]] {
-  import eyrie.nio.syntax.asJava._
+  import eyrie.nio.syntax.javaMirror._
 
   override
   def root: AbsoluteFile[Any] => RootDirectory[Any] =

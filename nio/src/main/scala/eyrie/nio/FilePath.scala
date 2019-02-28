@@ -4,7 +4,7 @@ import java.nio.file.Path
 
 import eyrie.nio
 import eyrie.nio.instances._
-import eyrie.nio.ops.AsJava
+import eyrie.nio.ops.JavaMirror
 
 sealed trait FileName[C] extends Any
 object FileName extends FileNameInstances
@@ -40,18 +40,18 @@ object FilePath extends FilePathInstances {
   private[nio]
   object Internal {
     final case class FileName[C](override val asJava: Path) extends AnyVal
-      with nio.FileName[C] with AsJava.Ops[Path]
+      with nio.FileName[C] with JavaMirror.Ops[Path]
 
     final case class IdentityFilePath[C](override val asJava: Path) extends AnyVal
-      with nio.IdentityFilePath[C] with Relative[C] with Empty[C] with FilePath[C] with AsJava.Ops[Path]
+      with nio.IdentityFilePath[C] with Relative[C] with Empty[C] with FilePath[C] with JavaMirror.Ops[Path]
 
     final case class RootDirectory[C](override val asJava: Path) extends AnyVal
-      with nio.RootDirectory[C] with Absolute[C] with Empty[C] with FilePath[C] with AsJava.Ops[Path]
+      with nio.RootDirectory[C] with Absolute[C] with Empty[C] with FilePath[C] with JavaMirror.Ops[Path]
 
     final case class RelativeFile[C](override val asJava: Path) extends AnyVal
-      with nio.RelativeFile[C] with Relative[C] with NonEmpty[C] with FilePath[C] with AsJava.Ops[Path]
+      with nio.RelativeFile[C] with Relative[C] with NonEmpty[C] with FilePath[C] with JavaMirror.Ops[Path]
 
     final case class AbsoluteFile[C](override val asJava: Path) extends AnyVal
-      with nio.AbsoluteFile[C] with Absolute[C] with NonEmpty[C] with FilePath[C] with AsJava.Ops[Path]
+      with nio.AbsoluteFile[C] with Absolute[C] with NonEmpty[C] with FilePath[C] with JavaMirror.Ops[Path]
   }
 }

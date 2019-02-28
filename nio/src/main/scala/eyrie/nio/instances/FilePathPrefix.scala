@@ -11,7 +11,7 @@ trait PrefixInstances[A[_]] extends EqualityInstances[A] {
 
 private
 object FilePathPrefix extends Prefix[FilePath[Any]] {
-  import eyrie.nio.syntax.asJava._
+  import eyrie.nio.syntax.javaMirror._
 
   override
   def startsWith: (FilePath[Any], FilePath[Any]) => Boolean =
